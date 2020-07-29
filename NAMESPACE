@@ -2,6 +2,7 @@
 
 export("%>%")
 export(ggkeyboard)
+export(keyboard_palette)
 importFrom(dplyr,bind_rows)
 importFrom(dplyr,case_when)
 importFrom(dplyr,filter)

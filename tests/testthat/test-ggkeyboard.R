@@ -7,11 +7,7 @@ test_that("Default looks as expected", {
 })
 
 test_that("Colours change as expected", {
-  colours <- ggkeyboard(
-    keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49",
-    alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier",
-    background_colour = "lightgrey", light_colour = "#8aff2b"
-  )
+  colours <- ggkeyboard(palette = keyboard_palette("serika"))
   expect_doppelganger("colours", colours)
 })
 

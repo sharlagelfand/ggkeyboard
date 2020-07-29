@@ -14,15 +14,8 @@ ggkeyboard(
   segment_size = 0.25,
   arrow_size = 0.03,
   font_family = "Avenir Next",
-  keyboard_colour = "#fbbcb8",
-  background_colour = "#fce9d0",
-  alphanum_colour = "#bfdff6",
-  accent_colour = "#a3e3c4",
-  modifier_colour = "#78baeb",
-  arrow_colour = "#c1b3ef",
-  text_colour = "#5F5F5F",
+  palette = keyboard_palette("pastel"),
   adjust_text_colour = TRUE,
-  light_colour = clr_darken(keyboard_colour, 0.1),
   layout = c("ansi", "iso")
 )
 }
@@ -45,23 +38,9 @@ ggkeyboard(
 
 \item{font_family}{Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.}
 
-\item{keyboard_colour}{Colour of the keyboard. Defaults to "#fbbcb8".}
+\item{palette}{Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \link{\code{keyboard_palette()}}.}
 
-\item{background_colour}{Colour of the background. Defaults to "#fce9d0".}
-
-\item{alphanum_colour}{Colour of alpha-numeric keys and other common text keys (e.g. <, :, etc). Defaults to "#bfdff6".}
-
-\item{accent_colour}{Colour of accent keys (F1-4, F9-12, and the spacebar). Defaults to "#78baeb".}
-
-\item{modifier_colour}{Colour of modifier keys (e.g. Shift, Print, Insert, etc). Defaults to "#78baeb".}
-
-\item{arrow_colour}{Colour of arrow-pad keys. Defaults to "#c1b3ef".}
-
-\item{text_colour}{Text colour. Defaults to "#5F5F5F".}
-
-\item{adjust_text_colour}{Whether to ligthen the text colour on dark keys. Defaults to TRUE.}
-
-\item{light_colour}{Colour of lights on the keyboards. Defaults to a 10\% darker version of \code{keyboard_colour}.}
+\item{adjust_text_colour}{Whether to lighten the text colour on dark keys. Defaults to TRUE.}
 
 \item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 }
@@ -72,8 +51,10 @@ Plot a keyboard using ggplot2
 \dontrun{
 ggkeyboard()
 
-ggkeyboard(tkl, keyboard_colour = "#51504A", modifier_colour = "#ffce00",
-accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49",
-font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
+ggkeyboard(tkl,
+  keyboard_colour = "#51504A", modifier_colour = "#ffce00",
+  accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49",
+  font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b"
+)
 }
 }

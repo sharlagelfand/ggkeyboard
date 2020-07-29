@@ -23,45 +23,44 @@ ggkeyboard()
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
-You can change the colours, font, sizes, etc. This keyboard is inspired
-by the [Drop + Zambumon MT3 Serika Custom Keycap
-Set](https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set):
+You can change the colours, font, sizes, etc. There are a few built in
+colour palettes, available via `keyboard_palette()`:
 
 ``` r
-ggkeyboard(
-  keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49",
-  alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier",
-  background_colour = "lightgrey", light_colour = "#8aff2b"
-)
+library(scales)
+
+show_col(keyboard_palette("serika"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+This keyboard is inspired by the [Drop + Zambumon MT3 Serika Custom
+Keycap
+Set](https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set):
+
+``` r
+ggkeyboard(palette = keyboard_palette("serika"))
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 This one is inspired by the [Melgeek MG Wahtsy ABS Doubleshot Keycap
 Set](https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set):
 
 ``` r
-ggkeyboard(
-  keyboard_colour = "#E5E7EB", modifier_colour = "#155E90", accent_colour = "#F9B668",
-  alphanum_colour = "#DFDED9", arrow_colour = "#155E90", background_colour = "#F0F0F0",
-  text_colour = "#f97600"
-)
+ggkeyboard(palette = keyboard_palette("wahtsy"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 and this one by the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap
 Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set):
 
 ``` r
-ggkeyboard(
-  keyboard_colour = "#313131", modifier_colour = "#FF4893", accent_colour = "#00A8E8",
-  alphanum_colour = "#6F4CA4", arrow_colour = "#00A8E8", background_colour = "#F0F0F0",
-  text_colour = "white"
-)
+ggkeyboard(palette = keyboard_palette("cyberpunk"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in
 `tkl`:
@@ -86,4 +85,4 @@ You can use an ISO keyboard and layout by changing the `data` and
 ggkeyboard(tkl_iso, layout = "iso")
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
