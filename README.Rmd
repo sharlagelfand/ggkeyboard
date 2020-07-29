@@ -9,7 +9,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",message = FALSE, warning = FALSE, echo = FALSE, fig.width = 10, fig.height = 5, dpi = 300
+  out.width = "100%", 
+  fig.width = 10, 
+  fig.height = 5,
+  dpi = 300
 )
 ```
 
@@ -24,7 +27,7 @@ You can install ggkeyboard from github:
 devtools::install_github("sharlagelfand/ggkeyboard", ref = "main")
 ```
 
-Plot a keyboard using `ggkeyboard()`:
+Plot a keyboard using `ggkeyboard()`. The default is very cute:
 
 ```{r}
 library(ggkeyboard)
@@ -35,23 +38,35 @@ ggkeyboard()
 You can change the colours, font, sizes, etc. This keyboard is inspired by the [Drop + Zambumon MT3 Serika Custom Keycap Set](https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set):
 
 ```{r}
-ggkeyboard(keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
+ggkeyboard(
+  keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49",
+  alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier",
+  background_colour = "lightgrey", light_colour = "#8aff2b"
+)
 ```
 
 This one is inspired by the [Melgeek MG Wahtsy ABS Doubleshot Keycap Set](https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set):
 
 ```{r}
-ggkeyboard(keyboard_colour = "#E5E7EB", modifier_colour = "#155E90", accent_colour = "#F9B668", alphanum_colour = "#DFDED9", arrow_colour = "#155E90", background_colour = "#F0F0F0", text_colour = "#f97600")
+ggkeyboard(
+  keyboard_colour = "#E5E7EB", modifier_colour = "#155E90", accent_colour = "#F9B668",
+  alphanum_colour = "#DFDED9", arrow_colour = "#155E90", background_colour = "#F0F0F0",
+  text_colour = "#f97600"
+)
 ```
 
 and this one by the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set):
 
 ```{r}
-ggkeyboard(tkl, keyboard_colour = "#313131", modifier_colour = "#FF4893", accent_colour = "#00A8E8", alphanum_colour = "#6F4CA4", arrow_colour = "#00A8E8", background_colour = "#F0F0F0", text_colour = "white")
+ggkeyboard(
+  keyboard_colour = "#313131", modifier_colour = "#FF4893", accent_colour = "#00A8E8",
+  alphanum_colour = "#6F4CA4", arrow_colour = "#00A8E8", background_colour = "#F0F0F0",
+  text_colour = "white"
+)
 ```
 
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in `tkl`. 
-You can make your own keyboard if you want to go through the painstaking effort of manually constructing each row and the appropriate spacing :).
+You can make your own keyboard layout if you want to go through the painstaking effort of manually constructing each row and the appropriate spacing :).
 
 ```{r}
 names(tkl)

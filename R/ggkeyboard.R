@@ -32,7 +32,9 @@
 #' \dontrun{
 #' ggkeyboard()
 #'
-#' ggkeyboard(tkl, keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
+#' ggkeyboard(tkl, keyboard_colour = "#51504A", modifier_colour = "#ffce00",
+#' accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49",
+#' font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
 #' }
 ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", keyboard_colour = "#fbbcb8", background_colour = "#fce9d0", alphanum_colour = "#bfdff6", accent_colour = "#a3e3c4", modifier_colour = "#78baeb", arrow_colour = "#c1b3ef", text_colour = "#5F5F5F", adjust_text_colour = TRUE, light_colour = clr_darken(keyboard_colour, 0.1)) {
 
@@ -116,10 +118,8 @@ ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height
 
     p <- p +
       geom_ellipse(data = row_data, aes(x0 = x_mid, y0 = y_mid, a = width / 2, b = key_height / 2, angle = 0, m1 = 10, fill = fill, colour = colour), size = 1) +
-      geom_text(data = row_data, aes(x = x_start + width / 2, y = (y_start + y_end) / 2, label = key_label, size = size, colour = text_colour), family = font_family, lineheight = 0.9) +
-      scale_fill_identity() +
-      scale_colour_identity() +
-      scale_size_identity()
+      geom_text(data = row_data %>%
+                  filter(!is.na(key_label)), aes(x = x_start + width / 2, y = (y_start + y_end) / 2, label = key_label, size = size, colour = text_colour), family = font_family, lineheight = 0.9)
   }
 
   # Add arrows/images/etc ----
@@ -159,7 +159,10 @@ ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height
     geom_point(data = circles, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = light_colour, alpha = 0.75) +
     # Windows keys
     geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "☺", size = font_size * 2) +
-    coord_equal()
+    coord_equal() +
+    scale_fill_identity() +
+    scale_colour_identity() +
+    scale_size_identity()
 
   p
 }
