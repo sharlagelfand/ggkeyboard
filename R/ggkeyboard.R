@@ -18,6 +18,7 @@
 #' @param text_colour Text colour. Defaults to "#5F5F5F".
 #' @param adjust_text_colour Whether to ligthen the text colour on dark keys. Defaults to TRUE.
 #' @param light_colour Colour of lights on the keyboards. Defaults to a 10% darker version of \code{keyboard_colour}.
+#' @param layout Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".
 #'
 #' @importFrom dplyr mutate group_by bind_rows tibble case_when ungroup rowwise row_number filter
 #' @importFrom stringr str_detect

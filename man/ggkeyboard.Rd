@@ -62,6 +62,8 @@ ggkeyboard(
 \item{adjust_text_colour}{Whether to ligthen the text colour on dark keys. Defaults to TRUE.}
 
 \item{light_colour}{Colour of lights on the keyboards. Defaults to a 10\% darker version of \code{keyboard_colour}.}
+
+\item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 }
 \description{
 Plot a keyboard using ggplot2
