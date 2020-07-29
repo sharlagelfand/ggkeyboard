@@ -136,7 +136,6 @@
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='456.09' y='299.18' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>{</text></g>
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='489.51' y='289.96' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>]</text></g>
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='489.51' y='299.18' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>}</text></g>
-<g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='531.29' y='294.57' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>Enter</text></g>
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='581.42' y='294.57' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>Del</text></g>
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='614.84' y='294.57' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>End</text></g>
 <g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='648.26' y='294.57' style='font-size: 8.54px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>PgDn</text></g>
@@ -243,6 +242,7 @@
 <rect x='516.48' y='299.42' width='37.96' height='13.37' style='stroke-width: 2.13; stroke: #78BAEB; stroke-linecap: square; stroke-linejoin: miter; fill: #78BAEB;' clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)' />
 <line x1='516.48' y1='317.46' x2='516.48' y2='303.31' style='stroke-width: 2.13; stroke: #59AAE6; stroke-linecap: butt;' clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)' />
 <line x1='554.44' y1='317.46' x2='554.44' y2='294.55' style='stroke-width: 2.13; stroke: #59AAE6; stroke-linecap: butt;' clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)' />
+<g clip-path='url(#cpOS45Nnw3MTAuMDR8NDIzLjc0fDE2OS41NQ==)'><text x='535.46' y='314.14' style='font-size: 11.04px; fill: #5F5F5F; font-family: Avenir Next;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'>Enter</text></g>
 <defs>
   <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />

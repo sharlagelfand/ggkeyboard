@@ -22,7 +22,7 @@
 #' @importFrom dplyr mutate group_by bind_rows tibble case_when ungroup rowwise row_number filter
 #' @importFrom stringr str_detect
 #' @importFrom prismatic clr_lighten clr_darken
-#' @importFrom ggplot2 ggplot aes theme_void theme element_rect margin geom_text scale_fill_identity scale_colour_identity scale_size_identity geom_segment arrow unit coord_equal geom_point geom_rect geom_segment
+#' @importFrom ggplot2 ggplot aes theme_void theme element_rect margin geom_text scale_fill_identity scale_colour_identity scale_size_identity geom_segment arrow unit coord_equal geom_point geom_rect geom_segment annotate
 #' @importFrom ggforce geom_ellipse
 #' @importFrom grDevices col2rgb
 #'
@@ -87,7 +87,7 @@ construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1
       ),
       key_label = case_when(
         key %in% c("Spacebar", "Up", "Down", "Left", "Right", "Backspace", "Shift", "Shift2", "Cmd", "??") ~ NA_character_,
-        layout %in% "iso" & key == "Enter" & row == 3 ~ NA_character_,
+        layout %in% "iso" & key == "Enter" ~ NA_character_,
         TRUE ~ key
       )
     ) %>%
@@ -192,12 +192,14 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
                     ymin = enter[1,][["y_end"]],
                     ymax = enter[2,][["y_start"]],
                     colour = unique(enter[["colour"]]),
-                    fill = unique(enter[["fill"]]))
+                    fill = unique(enter[["fill"]]),
+                    text_colour = unique(enter[["text_colour"]]))
 
     p <- p +
       geom_rect(data = enter, aes(xmin = xmin, xmax = xmax, ymin = ymin*0.95, ymax = ymax*1.05, colour = fill, fill = fill), size = 1) +
       geom_segment(data = enter, aes(x = xmin, xend = xmin, y = ymin*0.90, yend = ymax*1.01, colour = colour), size = 1) +
-      geom_segment(data = enter, aes(x = xmax, xend = xmax, y = ymin*0.90, yend = ymax*1.1, colour = colour), size = 1)
+      geom_segment(data = enter, aes(x = xmax, xend = xmax, y = ymin*0.90, yend = ymax*1.1, colour = colour), size = 1) +
+      annotate("text", x = (enter[["xmin"]] + enter[["xmax"]])/2, y = (enter[["ymin"]] + enter[["ymax"]])/2, label = "Enter", family = font_family, colour = enter[["text_colour"]])
   }
 
   p
