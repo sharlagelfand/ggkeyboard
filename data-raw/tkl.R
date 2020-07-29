@@ -71,7 +71,7 @@ r1 <- tibble(
 
 # Combine into list for function ----
 
-tkl <- list(
+tkl <- bind_rows(
   r1 = r1,
   r2 = r2,
   r3 = r3,
@@ -79,5 +79,10 @@ tkl <- list(
   r5 = r5,
   r6 = r6
 )
+
+tkl <- bind_rows(tkl) %>%
+  group_by(row) %>%
+  mutate(number = row_number()) %>%
+  ungroup()
 
 usethis::use_data(tkl, overwrite = TRUE)
