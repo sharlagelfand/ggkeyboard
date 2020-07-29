@@ -76,7 +76,7 @@ construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1
       y_end = y_start + key_height,
       fill = case_when(
         str_detect(key, "^[:alnum:]$") ~ alphanum_colour,
-        key %in% c("~\n`", "_\n-", "+\n=", "[\n{", "]\n}", "|\n\\", ":\n;", "\"\n'", "<\n,", ">\n.", "?\n\\/") ~ alphanum_colour,
+        key %in% c("~\n`", "_\n-", "+\n=", "[\n{", "]\n}", "|\n\\", ":\n;", "\"\n'", "<\n,", ">\n.", "?\n/") ~ alphanum_colour,
         key %in% c(paste0("F", c(1:4, 9:12)), "Spacebar") ~ accent_colour,
         is.na(key) ~ NA_character_,
         key %in% c("Up", "Down", "Left", "Right") ~ arrow_colour,
