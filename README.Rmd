@@ -65,10 +65,15 @@ ggkeyboard(
 )
 ```
 
-`ggkeyboard()` defaults to using a tenkeyless keyboard, available in `tkl`. 
-You can make your own keyboard layout if you want to go through the painstaking effort of manually constructing each row and the appropriate spacing :).
+`ggkeyboard()` defaults to using a tenkeyless keyboard, available in `tkl`:
 
 ```{r}
-names(tkl)
-tkl[["r1"]]
+head(tkl)
 ```
+
+You can use an ISO keyboard and layout by changing the `data` and `layout`:
+
+```{r}
+ggkeyboard(tkl_iso, layout = "iso")
+```
+

@@ -64,27 +64,26 @@ ggkeyboard(
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in
-`tkl`. You can make your own keyboard layout if you want to go through
-the painstaking effort of manually constructing each row and the
-appropriate spacing :).
+`tkl`:
 
 ``` r
-names(tkl)
-#> [1] "r1" "r2" "r3" "r4" "r5" "r6"
-tkl[["r1"]]
-#> # A tibble: 12 x 3
-#>    key        row width
-#>    <chr>    <dbl> <dbl>
-#>  1 Ctrl         1  1.25
-#>  2 Cmd          1  1.25
-#>  3 Alt          1  1.25
-#>  4 Spacebar     1  6.25
-#>  5 Alt          1  1.25
-#>  6 ??           1  1.25
-#>  7 Fn           1  1.25
-#>  8 Ctrl         1  1.25
-#>  9 <NA>         1  0.25
-#> 10 Left         1  1   
-#> 11 Down         1  1   
-#> 12 Right        1  1
+head(tkl)
+#> # A tibble: 6 x 4
+#>   key        row width number
+#>   <chr>    <dbl> <dbl>  <int>
+#> 1 Ctrl         1  1.25      1
+#> 2 Cmd          1  1.25      2
+#> 3 Alt          1  1.25      3
+#> 4 Spacebar     1  6.25      4
+#> 5 Alt          1  1.25      5
+#> 6 ??           1  1.25      6
 ```
+
+You can use an ISO keyboard and layout by changing the `data` and
+`layout`:
+
+``` r
+ggkeyboard(tkl_iso, layout = "iso")
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />

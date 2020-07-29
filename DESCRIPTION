@@ -20,4 +20,7 @@ Imports:
     stringr,
     prismatic,
     ggplot2,
-    ggforce
+    ggforce,
+    vdiffr
+Suggests: 
+    testthat

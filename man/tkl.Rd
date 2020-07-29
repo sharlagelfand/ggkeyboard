@@ -5,7 +5,7 @@
 \alias{tkl}
 \title{Tenkeyless}
 \format{
-An object of class \code{list} of length 6.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 95 rows and 4 columns.
 }
 \usage{
 tkl

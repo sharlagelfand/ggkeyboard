@@ -22,11 +22,12 @@ ggkeyboard(
   arrow_colour = "#c1b3ef",
   text_colour = "#5F5F5F",
   adjust_text_colour = TRUE,
-  light_colour = clr_darken(keyboard_colour, 0.1)
+  light_colour = clr_darken(keyboard_colour, 0.1),
+  layout = c("ansi", "iso")
 )
 }
 \arguments{
-\item{data}{Keyboard data - a list with one element for each row of the keyboard, Defaults to \code{tkl}.}
+\item{data}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{tkl}.}
 
 \item{key_height}{Height of keys. Defaults to 15 / 15.5.}
 
@@ -61,6 +62,8 @@ ggkeyboard(
 \item{adjust_text_colour}{Whether to ligthen the text colour on dark keys. Defaults to TRUE.}
 
 \item{light_colour}{Colour of lights on the keyboards. Defaults to a 10\% darker version of \code{keyboard_colour}.}
+
+\item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 }
 \description{
 Plot a keyboard using ggplot2
@@ -69,6 +72,8 @@ Plot a keyboard using ggplot2
 \dontrun{
 ggkeyboard()
 
-ggkeyboard(tkl, keyboard_colour = "#51504A", modifier_colour = "#ffce00", accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49", font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
+ggkeyboard(tkl, keyboard_colour = "#51504A", modifier_colour = "#ffce00",
+accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49",
+font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b")
 }
 }
