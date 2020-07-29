@@ -10,7 +10,7 @@ You can install ggkeyboard from github:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("sharlagelfand/ggkeyboard", ref = "main")
+remotes::install_github("sharlagelfand/ggkeyboard", ref = "main")
 ```
 
 Plot a keyboard using `ggkeyboard()`. The default is very cute:
