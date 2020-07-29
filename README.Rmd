@@ -29,7 +29,7 @@ devtools::install_github("sharlagelfand/ggkeyboard", ref = "main")
 
 Plot a keyboard using `ggkeyboard()`. The default is very cute:
 
-```{r}
+```{r pastel}
 library(ggkeyboard)
 
 ggkeyboard()
@@ -37,7 +37,7 @@ ggkeyboard()
 
 You can change the colours, font, sizes, etc. There are a few built in colour palettes, available via `keyboard_palette()`:
 
-```{r}
+```{r palette}
 library(scales)
 
 show_col(keyboard_palette("serika"))
@@ -45,31 +45,31 @@ show_col(keyboard_palette("serika"))
 
 This keyboard is inspired by the [Drop + Zambumon MT3 Serika Custom Keycap Set](https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set):
 
-```{r}
+```{r serika}
 ggkeyboard(palette = keyboard_palette("serika"))
 ```
 
 This one is inspired by the [Melgeek MG Wahtsy ABS Doubleshot Keycap Set](https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set):
 
-```{r}
+```{r wahtsy}
 ggkeyboard(palette = keyboard_palette("wahtsy"))
 ```
 
 and this one by the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set):
 
-```{r}
+```{r cyberpunk}
 ggkeyboard(palette = keyboard_palette("cyberpunk"))
 ```
 
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in `tkl`:
 
-```{r}
+```{r tkl}
 head(tkl)
 ```
 
 You can use an ISO keyboard and layout by changing the `data` and `layout`:
 
-```{r}
+```{r iso}
 ggkeyboard(tkl_iso, layout = "iso")
 ```
 

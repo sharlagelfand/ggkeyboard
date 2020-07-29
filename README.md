@@ -21,7 +21,7 @@ library(ggkeyboard)
 ggkeyboard()
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-pastel-1.png" width="100%" />
 
 You can change the colours, font, sizes, etc. There are a few built in
 colour palettes, available via `keyboard_palette()`:
@@ -32,7 +32,7 @@ library(scales)
 show_col(keyboard_palette("serika"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-palette-1.png" width="100%" />
 
 This keyboard is inspired by the [Drop + Zambumon MT3 Serika Custom
 Keycap
@@ -42,7 +42,7 @@ Set](https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set):
 ggkeyboard(palette = keyboard_palette("serika"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-serika-1.png" width="100%" />
 
 This one is inspired by the [Melgeek MG Wahtsy ABS Doubleshot Keycap
 Set](https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set):
@@ -51,7 +51,7 @@ Set](https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set):
 ggkeyboard(palette = keyboard_palette("wahtsy"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-wahtsy-1.png" width="100%" />
 
 and this one by the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap
 Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set):
@@ -60,7 +60,7 @@ Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set)
 ggkeyboard(palette = keyboard_palette("cyberpunk"))
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-cyberpunk-1.png" width="100%" />
 
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in
 `tkl`:
@@ -85,4 +85,4 @@ You can use an ISO keyboard and layout by changing the `data` and
 ggkeyboard(tkl_iso, layout = "iso")
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-iso-1.png" width="100%" />
