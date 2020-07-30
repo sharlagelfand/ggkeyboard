@@ -67,15 +67,15 @@ ggkeyboard(palette = keyboard_palette("cyberpunk"))
 
 ``` r
 head(tkl)
-#> # A tibble: 6 x 4
-#>   key        row width number
-#>   <chr>    <dbl> <dbl>  <int>
-#> 1 Ctrl         1  1.25      1
-#> 2 Cmd          1  1.25      2
-#> 3 Alt          1  1.25      3
-#> 4 Spacebar     1  6.25      4
-#> 5 Alt          1  1.25      5
-#> 6 ??           1  1.25      6
+#> # A tibble: 6 x 6
+#>   key        row width number key_label key_type
+#>   <chr>    <dbl> <dbl>  <int> <chr>     <chr>   
+#> 1 Ctrl         1  1.25      1 Ctrl      modifier
+#> 2 Win          1  1.25      2 <NA>      modifier
+#> 3 Alt          1  1.25      3 Alt       modifier
+#> 4 Spacebar     1  6.25      4 <NA>      accent  
+#> 5 Alt          1  1.25      5 Alt       modifier
+#> 6 Win          1  1.25      6 <NA>      modifier
 ```
 
 You can use an ISO keyboard and layout by changing the `data` and

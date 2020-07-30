@@ -34,8 +34,10 @@ The palettes have the following fields:
 }
 }
 \examples{
+\dontrun{
 library(scales)
 show_col(keyboard_palette("pastel"))
 
 ggkeyboard(palette = keyboard_palette("cyberpunk"))
+}
 }

@@ -33,22 +33,22 @@
 #' )
 #' }
 ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
+
   layout <- match.arg(layout)
 
-  # Combine keyboard and calculate start/end for plot, sizes, and colours ----
   keyboard <- construct_keyboard(data = data, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
 
-  # Create keyboard outline ----
-
   keyboard_full <- construct_keyboard_outline(keyboard, keyboard_colour = palette[["keyboard"]])
-
-  # Initial plot ----
 
   construct_plot(keyboard, keyboard_full, key_height = key_height, key_width = key_width, height_gap = height_gap, font_size = font_size, segment_size = segment_size, arrow_size = arrow_size, font_family = font_family, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
 }
 
 construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
+
   layout <- match.arg(layout)
+
+  palette_df <- tibble::enframe(palette, name = "key_type", value = "fill") %>%
+    tidyr::unnest(cols = c(fill))
 
   keyboard <- data %>%
     mutate(
@@ -67,24 +67,12 @@ construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1
       y_start = (height_gap * ifelse(row == 6, 2, 1) + key_height) * (row - 1),
       y_mid = y_start + key_height / 2,
       y_end = y_start + key_height,
-      fill = case_when(
-        str_detect(key, "^[:alnum:]$") ~ palette[["alphanumeric"]],
-        key %in% c("~\n`", "_\n-", "+\n=", "[\n{", "]\n}", "|\n\\", ":\n;", "\"\n'", "<\n,", ">\n.", "?\n/") ~ palette[["alphanumeric"]],
-        key %in% c(paste0("F", c(1:4, 9:12)), "Spacebar") ~ palette[["accent"]],
-        key %in% c("Up", "Down", "Left", "Right") ~ palette[["arrow"]],
-        is.na(key) ~ NA_character_,
-        TRUE ~ palette[["modifier"]]
-      ),
       size = font_size * case_when(
         str_detect(key, "^[:alnum:]$") ~ 1.75,
         TRUE ~ 1
-      ),
-      key_label = case_when(
-        key %in% c("Spacebar", "Up", "Down", "Left", "Right", "Backspace", "Shift", "Shift2", "Cmd", "??") ~ NA_character_,
-        layout %in% "iso" & key == "Enter" ~ NA_character_,
-        TRUE ~ key
       )
     ) %>%
+    dplyr::left_join(palette_df, by = "key_type") %>%
     rowwise() %>%
     mutate(
       text_colour = ifelse(is_dark(fill) & adjust_text_colour, clr_lighten(palette[["text"]], 0.5), palette[["text"]])
@@ -150,7 +138,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     filter(key %in% c("Ins", "Home", "PgUp"))
 
   windows <- keyboard %>%
-    filter(key %in% c("Cmd", "??"))
+    filter(key == "Win")
 
   p <- p +
     # Backspace

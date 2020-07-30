@@ -59,7 +59,7 @@ r2 <- tibble(
   ))
 
 r1 <- tibble(
-  key = c("Ctrl", "Cmd", "Alt", "Spacebar", "Alt", "??", "Fn", "Ctrl", NA, "Left", "Down", "Right"),
+  key = c("Ctrl", "Win", "Alt", "Spacebar", "Alt", "Win", "Menu", "Ctrl", NA, "Left", "Down", "Right"),
   row = 1
 ) %>%
   mutate(width = case_when(
@@ -84,5 +84,19 @@ tkl <- bind_rows(tkl) %>%
   group_by(row) %>%
   mutate(number = row_number()) %>%
   ungroup()
+
+tkl <- tkl %>%
+  mutate(key_label = case_when(
+    key %in% c("Spacebar", "Up", "Down", "Left", "Right", "Backspace", "Shift", "Shift2", "Win") ~ NA_character_,
+    TRUE ~ key
+  ),
+  key_type = case_when(
+    str_detect(key, "^[:alnum:]$") ~ "alphanumeric",
+    key %in% c("~\n`", "_\n-", "+\n=", "[\n{", "]\n}", "|\n\\", ":\n;", "\"\n'", "<\n,", ">\n.", "?\n/") ~ "alphanumeric",
+    key %in% c(paste0("F", c(1:4, 9:12)), "Spacebar") ~ "accent",
+    key %in% c("Up", "Down", "Left", "Right") ~ "arrow",
+    is.na(key) ~ NA_character_,
+    TRUE ~ "modifier")
+  )
 
 usethis::use_data(tkl, overwrite = TRUE)
