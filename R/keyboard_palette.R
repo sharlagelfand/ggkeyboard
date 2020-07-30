@@ -62,7 +62,7 @@ keyboard_palette <- function(palette = c("pastel", "serika", "wahtsy", "cyberpun
       light = "#CBCFD7",
       text = "#f97600"
     ),
-    cyberpunk = list(
+    cyberpunk = c(
       background = "#F0F0F0",
       keyboard = "#313131",
       alphanumeric = "#6F4CA4",
