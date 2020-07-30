@@ -138,33 +138,41 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
   # Add arrows if present in layout
   if (keyboard_layout %in% c("tkl", "full")) {
     arrows <- keyboard %>%
-      filter(key %in% c("Up", "Down", "Left", "Right")) %>%
+      filter(key %in% c("Up", "Down", "Left", "Right"))
+
+    arrow_colour <- ifelse(is_dark(unique(arrows[["fill"]])) & adjust_text_colour, clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+
+    arrows <- arrows %>%
       split(.$key)
 
     p <- p +
-      geom_segment(data = arrows[["Down"]], aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-      geom_segment(data = arrows[["Up"]], aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-      geom_segment(data = arrows[["Left"]], aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-      geom_segment(data = arrows[["Right"]], aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size)
+      geom_segment(data = arrows[["Down"]], aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Up"]], aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Left"]], aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Right"]], aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size)
   }
 
   # Draw on backspace/shift buttons
   backspace <- keyboard %>%
     filter(key == "Backspace")
 
+  backspace_colour <- ifelse(is_dark(unique(backspace[["fill"]])) & adjust_text_colour, clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+
   shift <- keyboard %>%
     filter(str_detect(key, "Shift"))
 
+  shift_colour <- ifelse(is_dark(unique(shift[["fill"]])) & adjust_text_colour, clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+
   p <- p +
     # Backspace
-    geom_segment(data = backspace, aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(0.02, "npc")), size = segment_size) +
+    geom_segment(data = backspace, aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = backspace_colour), arrow = arrow(length = unit(0.02, "npc")), size = segment_size) +
     # Shift arrows
-    geom_segment(data = shift, aes(x = x_mid - key_width * 0.1, xend = x_mid - key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid, y = y_mid, yend = (y_end + y_mid) / 2, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid, xend = x_mid + key_width * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.25, yend = y_mid, y = y_mid, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid - key_width * 0.1, yend = y_mid, y = y_mid, colour = palette[["text"]]), size = segment_size)
+    geom_segment(data = shift, aes(x = x_mid - key_width * 0.1, xend = x_mid - key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = segment_size) +
+    geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = segment_size) +
+    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid, y = y_mid, yend = (y_end + y_mid) / 2, colour = shift_colour), size = segment_size) +
+    geom_segment(data = shift, aes(x = x_mid, xend = x_mid + key_width * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = shift_colour), size = segment_size) +
+    geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.25, yend = y_mid, y = y_mid, colour = shift_colour), size = segment_size) +
+    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid - key_width * 0.1, yend = y_mid, y = y_mid, colour = shift_colour), size = segment_size)
 
     # Draw on lights - above Ins, Home, PgUp if tkl, and above numpad if full
     if (keyboard_layout == "tkl") {

@@ -32,7 +32,7 @@ library(scales)
 show_col(keyboard_palette("serika"))
 ```
 
-<img src="man/figures/README-palette-1.png" width="50%" />
+<img src="man/figures/README-palette-1.png" width="100%" />
 
 This keyboard is inspired by the [Drop + Zambumon MT3 Serika Custom
 Keycap
