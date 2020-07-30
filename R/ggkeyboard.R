@@ -172,6 +172,24 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
         filter(key %in% c("Ins", "Home", "PgUp"))
       p <- p +
         geom_point(data = lights, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75)
+    } else if (keyboard_layout == "full") {
+
+      numpad_x <- keyboard %>%
+        filter(layout == "full", !is.na(key)) %>%
+        dplyr::distinct(x_start, x_end)
+
+      lights_x <- seq(from = min(numpad_x[["x_start"]]), to = max(numpad_x[["x_end"]]), length.out = 5)
+      lights_x <- lights_x[c(2:4)]
+
+      lights_y <- keyboard %>%
+        filter(row == 6) %>%
+        dplyr::pull(y_mid) %>%
+        unique()
+
+      lights <- tibble(x = lights_x,
+                       y = lights_y)
+      p <- p +
+        geom_point(data = lights, aes(x = x, y = y), size = 2.5, colour = palette[["light"]], alpha = 0.75)
     }
 
   # Add symbols in Win key

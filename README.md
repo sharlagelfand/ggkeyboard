@@ -78,7 +78,7 @@ head(tkl)
 #> 6 Win      <NA>      alphanumeric     1      6  1.25      1 60%
 ```
 
-There is also a full keyboard layouts available, via `full`:
+There is also a full keyboard layout available, via `full`:
 
 ``` r
 ggkeyboard(full)
@@ -94,7 +94,7 @@ ggkeyboard(sixty_percent)
 
 <img src="man/figures/README-sixty-1.png" width="100%" />
 
-You can use an ISO keyboard and layout by changing `layout` to “iso”:
+You can use an ISO layout by changing `layout` to “iso”:
 
 ``` r
 ggkeyboard(tkl, layout = "iso")
