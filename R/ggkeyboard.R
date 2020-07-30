@@ -52,7 +52,9 @@ construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1
   keyboard <- data %>%
     mutate(
       width = key_width * width,
-      width = width + width_gap * (width - key_width)
+      width = width + width_gap * (width - key_width),
+      height = key_height * height,
+      height = height + height_gap * (height - key_height)
     ) %>%
     group_by(row) %>%
     mutate(
@@ -64,8 +66,8 @@ construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1
     ungroup() %>%
     mutate(
       y_start = (height_gap * ifelse(row == 6, 2, 1) + key_height) * (row - 1),
-      y_mid = y_start + key_height / 2,
-      y_end = y_start + key_height,
+      y_mid = y_start + height / 2,
+      y_end = y_start + height,
       size = font_size * case_when(
         str_detect(key, "^[:alnum:]$") ~ 1.75,
         TRUE ~ 1
@@ -116,7 +118,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
       filter(row == i)
 
     p <- p +
-      geom_ellipse(data = row_data, aes(x0 = x_mid, y0 = y_mid, a = width / 2, b = key_height / 2, angle = 0, m1 = 10, fill = fill, colour = colour), size = 1) +
+      geom_ellipse(data = row_data, aes(x0 = x_mid, y0 = y_mid, a = width / 2, b = height / 2, angle = 0, m1 = 10, fill = fill, colour = colour), size = 1) +
       geom_text(data = row_data %>%
         filter(!is.na(key_label)), aes(x = x_start + width / 2, y = (y_start + y_end) / 2, label = key_label, size = size, colour = text_colour), family = font_family, lineheight = 0.9)
   }
