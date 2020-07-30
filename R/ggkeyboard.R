@@ -33,7 +33,6 @@
 #' )
 #' }
 ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
-
   layout <- match.arg(layout)
 
   keyboard <- construct_keyboard(data = data, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
@@ -101,10 +100,19 @@ construct_keyboard_outline <- function(keyboard, keyboard_colour = keyboard_pale
 }
 
 construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = palette, adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
+
   layout <- match.arg(layout)
+
+  keyboard_layout <- case_when(
+    any(keyboard[["layout"]] == "full") ~ "full",
+    any(keyboard[["layout"]] == "tkl") ~ "tkl",
+    all(keyboard[["layout"]] == "60%") ~ "60%"
+  )
 
   p <- ggplot() +
     geom_ellipse(data = keyboard_full, aes(x0 = x_mid, y0 = y_mid, a = x_mid * 1.05, b = y_mid * 1.1, angle = 0, m1 = 100, fill = fill, colour = clr_darken(fill, 0.10)), size = 1) +
+    scale_colour_identity() +
+    scale_fill_identity() +
     theme_void() +
     theme(
       plot.background = element_rect(fill = palette[["background"]], colour = palette[["background"]]),
@@ -123,46 +131,55 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
         filter(!is.na(key_label)), aes(x = x_start + width / 2, y = (y_start + y_end) / 2, label = key_label, size = size, colour = text_colour), family = font_family, lineheight = 0.9)
   }
 
-  # Add arrows/images/etc ----
+  # Add arrows if present in layout
+  if (keyboard_layout %in% c("tkl", "full")) {
+    arrows <- keyboard %>%
+      filter(key %in% c("Up", "Down", "Left", "Right")) %>%
+      split(.$key)
 
-  arrows <- keyboard %>%
-    filter(key %in% c("Up", "Down", "Left", "Right")) %>%
-    split(.$key)
+    p <- p +
+      geom_segment(data = arrows[["Down"]], aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Up"]], aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Left"]], aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Right"]], aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size)
+  }
 
+  # Draw on backspace/shift buttons
   backspace <- keyboard %>%
     filter(key == "Backspace")
 
   shift <- keyboard %>%
     filter(str_detect(key, "Shift"))
 
-  circles <- keyboard %>%
-    filter(key %in% c("Ins", "Home", "PgUp"))
-
-  windows <- keyboard %>%
-    filter(key == "Win")
-
   p <- p +
     # Backspace
     geom_segment(data = backspace, aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(0.02, "npc")), size = segment_size) +
-    # Arrows
-    geom_segment(data = arrows[["Down"]], aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-    geom_segment(data = arrows[["Up"]], aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-    geom_segment(data = arrows[["Left"]], aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-    geom_segment(data = arrows[["Right"]], aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = palette[["text"]]), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
     # Shift arrows
     geom_segment(data = shift, aes(x = x_mid - key_width * 0.1, xend = x_mid - key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = palette[["text"]]), size = segment_size) +
     geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = palette[["text"]]), size = segment_size) +
     geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid, y = y_mid, yend = (y_end + y_mid) / 2, colour = palette[["text"]]), size = segment_size) +
     geom_segment(data = shift, aes(x = x_mid, xend = x_mid + key_width * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = palette[["text"]]), size = segment_size) +
     geom_segment(data = shift, aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.25, yend = y_mid, y = y_mid, colour = palette[["text"]]), size = segment_size) +
-    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid - key_width * 0.1, yend = y_mid, y = y_mid, colour = palette[["text"]]), size = segment_size) +
-    # Circles
-    geom_point(data = circles, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75) +
-    # Windows keys
-    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "\u{263A}", size = font_size * 2) +
+    geom_segment(data = shift, aes(x = x_mid - key_width * 0.25, xend = x_mid - key_width * 0.1, yend = y_mid, y = y_mid, colour = palette[["text"]]), size = segment_size)
+
+    # Draw on lights - above Ins, Home, PgUp if tkl, and above numpad if full
+    if (keyboard_layout == "tkl") {
+      lights <- keyboard %>%
+        filter(key %in% c("Ins", "Home", "PgUp"))
+      p <- p +
+        geom_point(data = lights, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75)
+    }
+
+  # Add symbols in Win key
+  windows <- keyboard %>%
+    filter(key == "Win")
+
+  p <- p +
+    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "\u{263A}", size = font_size * 2)
+
+  # Final layout aspects
+  p <- p +
     coord_equal() +
-    scale_fill_identity() +
-    scale_colour_identity() +
     scale_size_identity()
 
   if (layout == "iso") {
