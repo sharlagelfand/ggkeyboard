@@ -28,6 +28,7 @@ The palettes have the following fields:
 \item alphanumeric: Colour of alpha-numeric keys and other common text keys (e.g. <, :, etc).
 \item accent: Colour of accent keys (F1-4, F9-12, and the spacebar).
 \item modifier: Colour of modifier keys (e.g. Shift, Print, Insert, etc).
+\item numpad: Colour of numpad (non-modifier) keys (1-9).
 \item arrow: Colour of arrow-pad keys.
 \item light: Colour of lights on the keyboards.
 \item text: Text colour.

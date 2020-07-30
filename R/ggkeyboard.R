@@ -72,7 +72,7 @@ construct_keyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width
       y_mid = y_start + height / 2,
       y_end = y_start + height,
       size = font_size * case_when(
-        str_detect(key, "^[:alnum:]$") ~ 1.75,
+        str_detect(key, "^[:alnum:]$") & key_type == "alphanumeric" ~ 1.75,
         TRUE ~ 1
       )
     ) %>%
