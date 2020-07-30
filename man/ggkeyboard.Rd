@@ -38,7 +38,7 @@ ggkeyboard(
 
 \item{font_family}{Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.}
 
-\item{palette}{Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \link{\code{keyboard_palette}}\code{()}.}
+\item{palette}{Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}\code{()}.}
 
 \item{adjust_text_colour}{Whether to lighten the text colour on dark keys. Defaults to TRUE.}
 
