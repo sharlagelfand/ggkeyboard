@@ -158,7 +158,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     # Circles
     geom_point(data = circles, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75) +
     # Windows keys
-    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "☺", size = font_size * 2) +
+    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "\u{263A}", size = font_size * 2) +
     coord_equal() +
     scale_fill_identity() +
     scale_colour_identity() +
