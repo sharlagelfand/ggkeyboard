@@ -1,6 +1,6 @@
 #' Plot a keyboard using ggplot2
 #'
-#' @param data Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{tkl}.
+#' @param keyboard Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}) and a 60% keyboard (\code{\link{sixty_percent}}).
 #' @param key_height Height of keys. Defaults to 15 / 15.5.
 #' @param key_width Base width of keys. Defaults to 1.
 #' @param height_gap Height gap between rows of keys. Defaults to 2 / 15.5.
@@ -32,23 +32,27 @@
 #'   font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b"
 #' )
 #' }
-ggkeyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
-  layout <- match.arg(layout)
+ggkeyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
 
-  keyboard <- construct_keyboard(data = data, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
+  layout <- match.arg(layout)
+  if (layout == "iso") {
+    keyboard <- convert_to_iso(keyboard)
+  }
+
+  keyboard <- construct_keyboard(keyboard = keyboard, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
 
   keyboard_full <- construct_keyboard_outline(keyboard, keyboard_colour = palette[["keyboard"]])
 
   construct_plot(keyboard, keyboard_full, key_height = key_height, key_width = key_width, height_gap = height_gap, font_size = font_size, segment_size = segment_size, arrow_size = arrow_size, font_family = font_family, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout)
 }
 
-construct_keyboard <- function(data = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
+construct_keyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
 
   layout <- match.arg(layout)
 
   palette_df <- tibble::enframe(palette, name = "key_type", value = "fill")
 
-  keyboard <- data %>%
+  keyboard <- keyboard %>%
     mutate(
       width = key_width * width,
       width = width + width_gap * (width - key_width),
@@ -184,7 +188,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
 
   if (layout == "iso") {
     enter <- keyboard %>%
-      filter(key == "Enter")
+      filter(key == "Enter" & layout == "60%")
 
     enter <- tibble(
       xmin = enter[1, ][["x_start"]],
@@ -208,4 +212,62 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
 
 is_dark <- function(colour) {
   (sum(col2rgb(colour) * c(299, 587, 114)) / 1000 < 123)
+}
+
+convert_to_iso <- function(keyboard) {
+
+  # Change existing keys
+  keyboard_iso <- keyboard %>%
+    mutate(
+      key = case_when(
+        row == 5 & number == 1 ~ "±\n§",
+        row == 4 & number == 14 ~ "Enter",
+        TRUE ~ key
+      ),
+      key_label = case_when(
+        key %in% c("±\n§", "Enter") ~ key,
+        TRUE ~ key_label
+      ),
+      key_type = case_when(
+        key == "±\n§" ~ "alphanumeric",
+        key == "Enter" ~ "modifier",
+        TRUE ~ key_type
+      ),
+      width = case_when(
+        key == "Shift" & row == 2 ~ 1.25,
+        TRUE ~ width
+      ),
+      number = case_when(
+        row == 2 & number > 1 ~ number + 1L,
+        TRUE ~ number
+      )
+    )
+
+  # Remove right shift key so that long enter can be in its place
+  iso_key_remove <- keyboard_iso %>%
+    filter(row == 3 & number %in% 13)
+
+  keyboard_iso <- keyboard_iso %>%
+    dplyr::anti_join(iso_key_remove, by = c("row", "number"))
+
+  # Add new keys
+  iso_key_add <- tibble(
+    key = c("|\n\\", "Enter", "~\n`"),
+    row = c(3, 3, 2),
+    width = c(1, 1.25, 1),
+    height = c(1, 1, 1),
+    number = c(13, 14, 2),
+    key_type = c("alphanumeric", "modifier", "alphanumeric"),
+    layout = rep("60%", 3)
+  ) %>%
+    mutate(key_label = key)
+
+  # Combine keyboard
+  keyboard_iso %>%
+    bind_rows(iso_key_add) %>%
+    dplyr::arrange(row, number) %>%
+    mutate(key_label = case_when(
+      key == "Enter" & layout == "60%" ~ NA_character_,
+      TRUE ~ key_label
+    ))
 }

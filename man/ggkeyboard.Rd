@@ -5,7 +5,7 @@
 \title{Plot a keyboard using ggplot2}
 \usage{
 ggkeyboard(
-  data = tkl,
+  keyboard = tkl,
   key_height = 15/15.5,
   key_width = 1,
   height_gap = 2/15.5,
@@ -20,7 +20,7 @@ ggkeyboard(
 )
 }
 \arguments{
-\item{data}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{tkl}.}
+\item{keyboard}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}) and a 60\% keyboard (\code{\link{sixty_percent}}).}
 
 \item{key_height}{Height of keys. Defaults to 15 / 15.5.}
 

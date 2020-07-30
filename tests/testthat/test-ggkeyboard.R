@@ -12,6 +12,20 @@ test_that("Colours change as expected", {
 })
 
 test_that("iso layout works", {
-  iso <- ggkeyboard(tkl_iso, layout = "iso")
+  iso <- ggkeyboard(tkl, layout = "iso")
   expect_doppelganger("iso", iso)
+})
+
+test_that("full and 60% layouts work, ansi and iso", {
+  p <- ggkeyboard(full)
+  expect_doppelganger("full", p)
+
+  p <- ggkeyboard(full, layout = "iso")
+  expect_doppelganger("full-iso", p)
+
+  p <- ggkeyboard(sixty_percent)
+  expect_doppelganger("sixty-percent", p)
+
+  p <- ggkeyboard(sixty_percent, layout = "iso")
+  expect_doppelganger("sixty-percent-iso", p)
 })

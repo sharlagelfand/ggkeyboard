@@ -67,9 +67,21 @@ ggkeyboard(palette = keyboard_palette("cyberpunk"))
 head(tkl)
 ```
 
-You can use an ISO keyboard and layout by changing the `data` and `layout`:
+There is also a full keyboard layout available, via `full`:
+
+```{r full}
+ggkeyboard(full)
+```
+
+and a 60% layout available via `sixty_percent`:
+
+```{r sixty}
+ggkeyboard(sixty_percent)
+```
+
+You can use an ISO layout by changing `layout` to "iso":
 
 ```{r iso}
-ggkeyboard(tkl_iso, layout = "iso")
+ggkeyboard(tkl, layout = "iso")
 ```
 
