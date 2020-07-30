@@ -9,7 +9,7 @@
 #' @param segment_size Size of segments used to draw arrows. Defaults to 0.25.
 #' @param arrow_size Size of arrow head. Defaults to 0.03 (npc).
 #' @param font_family Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.
-#' @param palette Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \link{\code{keyboard_palette()}}.
+#' @param palette Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}\code{()}.
 #' @param adjust_text_colour Whether to lighten the text colour on dark keys. Defaults to TRUE.
 #' @param layout Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".
 #'
@@ -158,7 +158,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     # Circles
     geom_point(data = circles, aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75) +
     # Windows keys
-    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "☺", size = font_size * 2) +
+    geom_text(data = windows, aes(x = x_mid, y = y_mid, colour = text_colour), label = "\u{263A}", size = font_size * 2) +
     coord_equal() +
     scale_fill_identity() +
     scale_colour_identity() +
