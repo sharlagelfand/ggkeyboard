@@ -9,7 +9,9 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-ggkeyboard lets you plot a keyboard and change the colours on it.
+ggkeyboard lets you plot a keyboard and change the colours on it. This
+package is very experimental, so expect breaking changes as I work
+through making all the customization options as friendly as possible.
 
 You can install ggkeyboard from github:
 
@@ -88,7 +90,7 @@ is based off the [Varmilo VA108 Fullsize
 Keyboard](https://drop.com/buy/varmilo-108-keyboard)
 
 ``` r
-ggkeyboard(full, palette = keyboard_palette("varmilo"))
+ggkeyboard(full, palette = keyboard_palette("varmilo"), font_size = 2.75)
 ```
 
 <img src="man/figures/README-full-1.png" width="100%" />
