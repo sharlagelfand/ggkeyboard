@@ -8,7 +8,7 @@ ggkeyboard(
   keyboard = tkl,
   palette = keyboard_palette("pastel"),
   layout = c("ansi", "iso"),
-  font_family = "Avenir Next",
+  font_family = "Arial Unicode MS",
   font_size = 3,
   adjust_text_colour = TRUE,
   measurements = keyboard_measurements("default")
@@ -21,7 +21,7 @@ ggkeyboard(
 
 \item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 
-\item{font_family}{Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.}
+\item{font_family}{Font used. Defaults to "Arial Unicode MS". See the \code{extrafont} package for using fonts.}
 
 \item{font_size}{Base font size. Defaults to 3.}
 
