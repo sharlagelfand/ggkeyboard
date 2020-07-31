@@ -24,4 +24,5 @@ Imports:
     vdiffr,
     tibble
 Suggests: 
-    testthat
+    testthat,
+    scales
