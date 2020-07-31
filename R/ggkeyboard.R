@@ -173,7 +173,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     p <- p +
       geom_segment(data = arrows[["Down"]], aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
       geom_segment(data = arrows[["Up"]], aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
-      geom_segment(data = arrows[["Left"]], aes(x = x_mid, xend = x_mid, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
+      geom_segment(data = arrows[["Left"]], aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size) +
       geom_segment(data = arrows[["Right"]], aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = arrow(length = unit(arrow_size, "npc")), size = segment_size)
     }
   }
