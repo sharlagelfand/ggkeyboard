@@ -20,6 +20,8 @@ You can install ggkeyboard from github:
 devtools::install_github("sharlagelfand/ggkeyboard", ref = "main")
 ```
 
+# Usage
+
 Plot a keyboard using `ggkeyboard()`. The default is very cute:
 
 ``` r
@@ -29,6 +31,8 @@ ggkeyboard()
 ```
 
 <img src="man/figures/README-pastel-1.png" width="100%" />
+
+## Colour palettes
 
 You can change the colours, font, sizes, etc. There are a few built in
 colour palettes, available via `keyboard_palette()`:
@@ -69,6 +73,8 @@ ggkeyboard(palette = keyboard_palette("cyberpunk"))
 
 <img src="man/figures/README-cyberpunk-1.png" width="100%" />
 
+## Layouts
+
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in
 `tkl`:
 
@@ -108,7 +114,7 @@ ggkeyboard(sixty_percent, palette = keyboard_palette("t0mb3ry"), adjust_text_col
 and a mac layout, based off the Apple magic keyboard:
 
 ``` r
-ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("magic"))
+ggkeyboard(mac, palette = keyboard_palette("magic"))
 ```
 
 <img src="man/figures/README-mac-1.png" width="100%" />
@@ -121,3 +127,15 @@ ggkeyboard(tkl, layout = "iso")
 ```
 
 <img src="man/figures/README-iso-1.png" width="100%" />
+
+## Highlighting
+
+You can use `highlight_keys()` to emphasize any keys - for example, to
+highlight what keys make up the shortcut for the pipe (%\>%):
+
+``` r
+ggkeyboard(tkl) %>%
+  highlight_keys(c("Alt Left", "Shift Left", "M"))
+```
+
+<img src="man/figures/README-highlight-1.png" width="100%" />

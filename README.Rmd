@@ -31,6 +31,8 @@ You can install ggkeyboard from github:
 devtools::install_github("sharlagelfand/ggkeyboard", ref = "main")
 ```
 
+# Usage
+
 Plot a keyboard using `ggkeyboard()`. The default is very cute:
 
 ```{r pastel}
@@ -38,6 +40,8 @@ library(ggkeyboard)
 
 ggkeyboard()
 ```
+
+## Colour palettes
 
 You can change the colours, font, sizes, etc. There are a few built in colour palettes, available via `keyboard_palette()`:
 
@@ -65,6 +69,8 @@ and this one by the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap Set](http
 ggkeyboard(palette = keyboard_palette("cyberpunk"))
 ```
 
+## Layouts
+
 `ggkeyboard()` defaults to using a tenkeyless keyboard, available in `tkl`:
 
 ```{r tkl}
@@ -86,12 +92,21 @@ ggkeyboard(sixty_percent, palette = keyboard_palette("t0mb3ry"), adjust_text_col
 and a mac layout, based off the Apple magic keyboard:
 
 ```{r mac}
-ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("magic"))
+ggkeyboard(mac, palette = keyboard_palette("magic"))
 ```
 
 You can use an ISO layout by changing `layout` to "iso", for any of the given keyboards:
 
 ```{r iso}
 ggkeyboard(tkl, layout = "iso")
+```
+
+## Highlighting
+
+You can use `highlight_keys()` to emphasize any keys - for example, to highlight what keys make up the shortcut for the pipe (%>%):
+
+```{r highlight}
+ggkeyboard(tkl) %>%
+  highlight_keys(c("Alt Left", "Shift Left", "M"))
 ```
 
