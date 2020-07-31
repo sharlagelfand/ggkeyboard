@@ -4,7 +4,9 @@
 \alias{keyboard_palette}
 \title{Keyboard palettes}
 \usage{
-keyboard_palette(palette = c("pastel", "serika", "wahtsy", "cyberpunk"))
+keyboard_palette(
+  palette = c("pastel", "serika", "wahtsy", "cyberpunk", "magic", "varmilo")
+)
 }
 \arguments{
 \item{palette}{Name of palette.}
@@ -19,6 +21,8 @@ There are four palettes available:
 \item "serika" is based off the \href{https://drop.com/buy/drop-zambumon-mt3-serika-custom-keycap-set}{Drop + Zambumon MT3 Serika Custom Keycap Set}.
 \item "wahtsy" is based off the \href{https://drop.com/buy/melgeek-mg-wahtsy-abs-doubleshot-keycap-set}{Melgeek MG Wahtsy ABS Doubleshot Keycap Set}.
 \item "cyberpunk" is based off the \href{https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set}{Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap Set}.
+\item "magic" is based off the \href{https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english}{Apple magic keyboard}.
+\item "varmilo" is based off the \href{https://drop.com/buy/varmilo-108-keyboard}{Varmilo VA108 Fullsize Keyboard}.
 }
 
 The palettes have the following fields:

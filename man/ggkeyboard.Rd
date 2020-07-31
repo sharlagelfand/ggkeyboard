@@ -20,7 +20,7 @@ ggkeyboard(
 )
 }
 \arguments{
-\item{keyboard}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}) and a 60\% keyboard (\code{\link{sixty_percent}}).}
+\item{keyboard}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}), 60\% keyboard (\code{\link{sixty_percent}}), and a basic mac keyboard (\code{\link{mac}}).}
 
 \item{key_height}{Height of keys. Defaults to 15 / 15.5.}
 

@@ -3,8 +3,13 @@
 
 # ggkeyboard
 
-ggkeyboard lets you plot a keyboard and change the colours on it. It’s
-cute.
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+ggkeyboard lets you plot a keyboard and change the colours on it.
 
 You can install ggkeyboard from github:
 
@@ -78,10 +83,12 @@ head(tkl)
 #> 6 Win      <NA>      modifier     1      6  1.25      1 60%
 ```
 
-There is also a full keyboard layout available, via `full`:
+There is also a full keyboard layout available via `full`. This palette
+is based off the [Varmilo VA108 Fullsize
+Keyboard](https://drop.com/buy/varmilo-108-keyboard)
 
 ``` r
-ggkeyboard(full)
+ggkeyboard(full, palette = keyboard_palette("varmilo"))
 ```
 
 <img src="man/figures/README-full-1.png" width="100%" />
@@ -102,7 +109,8 @@ ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("ma
 
 <img src="man/figures/README-mac-1.png" width="100%" />
 
-You can use an ISO layout by changing `layout` to “iso”:
+You can use an ISO layout by changing `layout` to “iso”, for any of the
+given keyboards:
 
 ``` r
 ggkeyboard(tkl, layout = "iso")

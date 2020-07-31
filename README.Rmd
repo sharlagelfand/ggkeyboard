@@ -18,7 +18,11 @@ knitr::opts_chunk$set(
 
 # ggkeyboard
 
-ggkeyboard lets you plot a keyboard and change the colours on it. It's cute.
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+ggkeyboard lets you plot a keyboard and change the colours on it.
 
 You can install ggkeyboard from github:
 
@@ -67,10 +71,10 @@ ggkeyboard(palette = keyboard_palette("cyberpunk"))
 head(tkl)
 ```
 
-There is also a full keyboard layout available, via `full`:
+There is also a full keyboard layout available via `full`. This palette is based off the [Varmilo VA108 Fullsize Keyboard](https://drop.com/buy/varmilo-108-keyboard)
 
 ```{r full}
-ggkeyboard(full)
+ggkeyboard(full, palette = keyboard_palette("varmilo"))
 ```
 
 a 60% layout available via `sixty_percent`:
@@ -85,7 +89,7 @@ and a mac layout, based off the Apple magic keyboard:
 ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("magic"))
 ```
 
-You can use an ISO layout by changing `layout` to "iso":
+You can use an ISO layout by changing `layout` to "iso", for any of the given keyboards:
 
 ```{r iso}
 ggkeyboard(tkl, layout = "iso")
