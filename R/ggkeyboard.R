@@ -36,16 +36,17 @@ ggkeyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, he
 
   layout <- match.arg(layout)
 
-  if (layout == "iso") {
-    keyboard <- convert_to_iso(keyboard)
-  }
-
   keyboard_layout <- case_when(
     any(keyboard[["layout"]] == "full") ~ "full",
     any(keyboard[["layout"]] == "tkl") ~ "tkl",
     any(keyboard[["layout"]] == "mac") ~ "mac",
     all(keyboard[["layout"]] == "60%") ~ "60%"
   )
+
+
+  if (layout == "iso") {
+    keyboard <- convert_to_iso(keyboard, keyboard_layout)
+  }
 
   keyboard <- construct_keyboard(keyboard = keyboard, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout, keyboard_layout = keyboard_layout)
 
@@ -244,8 +245,10 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     enter <- tibble(
       xmin = enter[1, ][["x_start"]],
       xmax = enter[1, ][["x_end"]],
+      xmid_top = enter[2, ][["x_mid"]],
       ymin = enter[1, ][["y_end"]],
       ymax = enter[2, ][["y_start"]],
+      ymid_top = enter[2, ][["y_mid"]],
       colour = unique(enter[["colour"]]),
       fill = unique(enter[["fill"]]),
       text_colour = unique(enter[["text_colour"]])
@@ -255,7 +258,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
       geom_rect(data = enter, aes(xmin = xmin, xmax = xmax, ymin = ymin * 0.95, ymax = ymax * 1.05, colour = fill, fill = fill), size = 1) +
       geom_segment(data = enter, aes(x = xmin, xend = xmin, y = ymin * 0.90, yend = ymax * 1.01, colour = colour), size = 1) +
       geom_segment(data = enter, aes(x = xmax, xend = xmax, y = ymin * 0.90, yend = ymax * 1.1, colour = colour), size = 1) +
-      annotate("text", x = (enter[["xmin"]] + enter[["xmax"]]) / 2, y = (enter[["ymin"]] + enter[["ymax"]]) / 2, label = "Enter", family = font_family, colour = enter[["text_colour"]])
+      annotate("text", x = ifelse(keyboard_layout == "mac", enter[["xmid_top"]], (enter[["xmin"]] + enter[["xmax"]]) / 2), y = ifelse(keyboard_layout == "mac", enter[["ymid_top"]], (enter[["ymin"]] + enter[["ymax"]]) / 2), label = "Enter", family = font_family, colour = enter[["text_colour"]])
   }
 
   p
@@ -265,7 +268,7 @@ is_dark <- function(colour) {
   (sum(col2rgb(colour) * c(299, 587, 114)) / 1000 < 123)
 }
 
-convert_to_iso <- function(keyboard) {
+convert_to_iso <- function(keyboard, keyboard_layout) {
 
   # Change existing keys
   keyboard_iso <- keyboard %>%
@@ -305,7 +308,7 @@ convert_to_iso <- function(keyboard) {
   iso_key_add <- tibble(
     key = c("|\n\\", "Enter", "~\n`"),
     row = c(3, 3, 2),
-    width = c(1, 1.25, 1),
+    width = c(1, ifelse(keyboard_layout == "mac", 0.75, 1.25), 1),
     height = c(1, 1, 1),
     number = c(13, 14, 2),
     key_type = c("alphanumeric", "modifier", "alphanumeric"),
