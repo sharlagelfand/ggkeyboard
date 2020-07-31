@@ -21,7 +21,7 @@ ggkeyboard(
 
 \item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 
-\item{font_family}{Font used. Defaults to "Arial Unicode MS". See the \code{extrafont} package for using fonts.}
+\item{font_family}{Font used. Defaults to "Arial Unicode MS". See the \code{extrafont} package for using fonts in ggplot2.}
 
 \item{font_size}{Base font size. Defaults to 3.}
 

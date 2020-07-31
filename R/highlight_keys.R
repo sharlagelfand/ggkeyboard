@@ -13,15 +13,15 @@
 #' @export
 #'
 #' @examples
-#' ggkeyboard() %>%
+#' ggkeyboard(tkl) %>%
 #'   highlight_keys(c("Alt Left", "Shift Left", "M"))
-highlight_key <- function(ggkeyboard, key, colour = "yellow", fill = NA, size = 1, ...) {
+highlight_keys <- function(ggkeyboard, keys, colour = "yellow", fill = NA, size = 1, ...) {
   keyboard <- purrr::map(p$layers, "data") %>%
     purrr::keep(~ "key" %in% names(.x)) %>%
     dplyr::bind_rows()
 
   key_data <- keyboard %>%
-    dplyr::filter(key %in% !!key) %>%
+    dplyr::filter(key %in% !!keys) %>%
     dplyr::distinct(key, x_start, x_end, y_start, y_end)
 
   ggkeyboard +

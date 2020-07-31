@@ -22,7 +22,8 @@ Imports:
     ggplot2,
     ggforce,
     vdiffr,
-    tibble
+    tibble,
+    purrr
 Suggests: 
     testthat,
     scales

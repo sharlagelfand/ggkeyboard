@@ -3,7 +3,7 @@
 #' @param keyboard Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}), 60% keyboard (\code{\link{sixty_percent}}), and a basic mac keyboard (\code{\link{mac}}).
 #' @param palette Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}.
 #' @param layout Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".
-#' @param font_family Font used. Defaults to "Arial Unicode MS". See the \code{extrafont} package for using fonts.
+#' @param font_family Font used. Defaults to "Arial Unicode MS". See the \code{extrafont} package for using fonts in ggplot2.
 #' @param font_size Base font size. Defaults to 3.
 #' @param adjust_text_colour Whether to lighten the text colour on dark keys. Defaults to TRUE.
 #' @param measurements Measurements of various aspects of the keyboard key height and width, gaps between keys and rows, etc. See \code{\link{keyboard_measurements}}.

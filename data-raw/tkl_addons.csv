@@ -11,9 +11,9 @@ End,End,modifier,4,17,1,1,tkl
 PgDn,PgDn,modifier,4,18,1,1,tkl
 ~`,~&nbsp;`,alphanumeric,5,1,1,1,tkl
 NA,NA,NA,5,15,0.25,1,tkl
-Ins,Del,modifier,5,16,1,1,tkl
-Home,End,modifier,5,17,1,1,tkl
-PgUp,PgDn,modifier,5,18,1,1,tkl
+Ins,Ins,modifier,5,16,1,1,tkl
+Home,Home,modifier,5,17,1,1,tkl
+PgUp,PgUp,modifier,5,18,1,1,tkl
 Esc,Esc,modifier,6,1,1,1,tkl
 NA,NA,NA,6,2,1,1,tkl
 F1,F1,accent,6,3,1,1,tkl
