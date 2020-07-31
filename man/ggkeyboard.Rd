@@ -6,43 +6,28 @@
 \usage{
 ggkeyboard(
   keyboard = tkl,
-  key_height = 15/15.5,
-  key_width = 1,
-  height_gap = 2/15.5,
-  width_gap = 2/15.5,
-  font_size = 3,
-  segment_size = 0.25,
-  arrow_size = 0.03,
-  font_family = "Avenir Next",
   palette = keyboard_palette("pastel"),
+  layout = c("ansi", "iso"),
+  font_family = "Avenir Next",
+  font_size = 3,
   adjust_text_colour = TRUE,
-  layout = c("ansi", "iso")
+  measurements = keyboard_measurements("default")
 )
 }
 \arguments{
 \item{keyboard}{Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}), 60\% keyboard (\code{\link{sixty_percent}}), and a basic mac keyboard (\code{\link{mac}}).}
 
-\item{key_height}{Height of keys. Defaults to 15 / 15.5.}
+\item{palette}{Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}.}
 
-\item{key_width}{Base width of keys. Defaults to 1.}
-
-\item{height_gap}{Height gap between rows of keys. Defaults to 2 / 15.5.}
-
-\item{width_gap}{Width gap between keys in the same row. Defaults to 2 / 15.5.}
-
-\item{font_size}{Base font size. Defaults to 3.}
-
-\item{segment_size}{Size of segments used to draw arrows. Defaults to 0.25.}
-
-\item{arrow_size}{Size of arrow head. Defaults to 0.03 (npc).}
+\item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
 
 \item{font_family}{Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.}
 
-\item{palette}{Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}.}
+\item{font_size}{Base font size. Defaults to 3.}
 
 \item{adjust_text_colour}{Whether to lighten the text colour on dark keys. Defaults to TRUE.}
 
-\item{layout}{Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".}
+\item{measurements}{Measurements of various aspects of the keyboard key height and width, gaps between keys and rows, etc. See \code{\link{keyboard_measurements}}.}
 }
 \description{
 Plot a keyboard using ggplot2

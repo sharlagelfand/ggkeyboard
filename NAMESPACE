@@ -2,5 +2,6 @@
 
 export("%>%")
 export(ggkeyboard)
+export(keyboard_measurements)
 export(keyboard_palette)
 importFrom(magrittr,"%>%")

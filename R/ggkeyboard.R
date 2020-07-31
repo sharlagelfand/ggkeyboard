@@ -1,17 +1,12 @@
 #' Plot a keyboard using ggplot2
 #'
 #' @param keyboard Keyboard data. A data frame with the key name, what row of the keyboard it is in, and key width. Defaults to \code{\link{tkl}} (a tenkeyless layout). Other available keyboards are a full keyboard (\code{\link{full}}), 60% keyboard (\code{\link{sixty_percent}}), and a basic mac keyboard (\code{\link{mac}}).
-#' @param key_height Height of keys. Defaults to 15 / 15.5.
-#' @param key_width Base width of keys. Defaults to 1.
-#' @param height_gap Height gap between rows of keys. Defaults to 2 / 15.5.
-#' @param width_gap Width gap between keys in the same row. Defaults to 2 / 15.5.
-#' @param font_size Base font size. Defaults to 3.
-#' @param segment_size Size of segments used to draw arrows. Defaults to 0.25.
-#' @param arrow_size Size of arrow head. Defaults to 0.03 (npc).
-#' @param font_family Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.
 #' @param palette Colour palette. Defaults to \code{keyboard_palette("pastel")}. To use a custom palette, create a vector with the names described in \code{\link{keyboard_palette}}.
-#' @param adjust_text_colour Whether to lighten the text colour on dark keys. Defaults to TRUE.
 #' @param layout Keyboard layout - one of "ansi" or "iso". Defaults to "ansi".
+#' @param font_family Font used. Defaults to "Avenir Next". See the \code{extrafont} package for using fonts.
+#' @param font_size Base font size. Defaults to 3.
+#' @param adjust_text_colour Whether to lighten the text colour on dark keys. Defaults to TRUE.
+#' @param measurements Measurements of various aspects of the keyboard key height and width, gaps between keys and rows, etc. See \code{\link{keyboard_measurements}}.
 #'
 #' @export
 #'
@@ -21,7 +16,7 @@
 #'
 #' ggkeyboard(sixty_percent, palette = keyboard_palette("cyberpunk"))
 #' }
-ggkeyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso")) {
+ggkeyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), layout = c("ansi", "iso"), font_family = "Avenir Next", font_size = 3, adjust_text_colour = TRUE, measurements = keyboard_measurements("default")) {
 
   layout <- match.arg(layout)
 
@@ -32,19 +27,18 @@ ggkeyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, he
     all(keyboard[["layout"]] == "60%") ~ "60%"
   )
 
-
   if (layout == "iso") {
     keyboard <- convert_to_iso(keyboard, keyboard_layout)
   }
 
-  keyboard <- construct_keyboard(keyboard = keyboard, key_height = key_height, key_width = key_width, height_gap = height_gap, width_gap = width_gap, font_size = font_size, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout, keyboard_layout = keyboard_layout)
+  keyboard <- construct_keyboard(keyboard = keyboard, palette = palette, layout = layout, font_size = font_size, adjust_text_colour = adjust_text_colour, measurements = measurements, keyboard_layout = keyboard_layout)
 
   keyboard_full <- construct_keyboard_outline(keyboard, keyboard_colour = palette[["keyboard"]])
 
-  construct_plot(keyboard, keyboard_full, key_height = key_height, key_width = key_width, height_gap = height_gap, font_size = font_size, segment_size = segment_size, arrow_size = arrow_size, font_family = font_family, palette = palette, adjust_text_colour = adjust_text_colour, layout = layout, keyboard_layout = keyboard_layout)
+  construct_plot(keyboard, keyboard_full, palette = palette, layout = layout, font_family = font_family, font_size = font_size, adjust_text_colour = adjust_text_colour, measurements = measurements, keyboard_layout = keyboard_layout)
 }
 
-construct_keyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, width_gap = 2 / 15.5, font_size = 3, palette = keyboard_palette("pastel"), adjust_text_colour = TRUE, layout = c("ansi", "iso"), keyboard_layout = "tkl") {
+construct_keyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), layout = c("ansi", "iso"), font_size = 3, adjust_text_colour = TRUE, measurements = keyboard_measurements("default"), keyboard_layout = "tkl") {
 
   layout <- match.arg(layout)
 
@@ -52,21 +46,21 @@ construct_keyboard <- function(keyboard = tkl, key_height = 15 / 15.5, key_width
 
   keyboard <- keyboard %>%
     dplyr::mutate(
-      width = key_width * width,
-      width = width + width_gap * (width - key_width),
-      height = key_height * height,
-      height = height + height_gap * (height - key_height)
+      width = measurements[["key_width"]] * width,
+      width = width + measurements[["width_gap"]] * (width - measurements[["key_width"]]),
+      height = measurements[["key_height"]] * height,
+      height = height + measurements[["height_gap"]] * (height - measurements[["key_height"]])
     ) %>%
     dplyr::group_by(row) %>%
     dplyr::mutate(
-      gap = ifelse(number == 1, 0, width_gap),
+      gap = ifelse(number == 1, 0, measurements[["width_gap"]]),
       x_start = cumsum(width) - width + cumsum(gap),
       x_mid = x_start + width / 2,
       x_end = x_start + width
     ) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(
-      y_start = (height_gap * ifelse(row == 6 & keyboard_layout != "mac", 2, 1) + key_height) * (row - 1),
+      y_start = (measurements[["height_gap"]] * ifelse(row == 6 & keyboard_layout != "mac", 2, 1) + measurements[["key_height"]]) * (row - 1),
       y_mid = y_start + height / 2,
       y_end = y_start + height,
       size = font_size * dplyr::case_when(
@@ -101,7 +95,7 @@ construct_keyboard_outline <- function(keyboard, keyboard_colour = keyboard_pale
     )
 }
 
-construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_width = 1, height_gap = 2 / 15.5, font_size = 3, segment_size = 0.25, arrow_size = 0.03, font_family = "Avenir Next", palette = palette, adjust_text_colour = TRUE, layout = c("ansi", "iso"), keyboard_layout) {
+construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", "iso"), font_family, font_size, adjust_text_colour, measurements, keyboard_layout) {
 
   layout <- match.arg(layout)
 
@@ -140,11 +134,11 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
     if (keyboard_layout == "mac") {
 
       p <- p +
-        ggplot2::geom_segment(data = arrows[["Left"]], ggplot2::aes(x = x_end, xend = x_start + 0.375*width, y = y_mid, yend = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc"), type = "closed"), size = segment_size, arrow.fill = arrow_colour, alpha = 0.80) +
-        ggplot2::geom_segment(data = arrows[["Right"]], ggplot2::aes(xend = x_end - 0.375*width, x = x_start, y = y_mid, yend = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc"), type = "closed"), size = segment_size, arrow.fill = arrow_colour, alpha = 0.80) +
+        ggplot2::geom_segment(data = arrows[["Left"]], ggplot2::aes(x = x_end, xend = x_start + 0.375*width, y = y_mid, yend = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed"), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80) +
+        ggplot2::geom_segment(data = arrows[["Right"]], ggplot2::aes(xend = x_end - 0.375*width, x = x_start, y = y_mid, yend = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed"), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80) +
         ggplot2::geom_segment(data = arrows[["UpDown"]], ggplot2::aes(x = x_start, xend = x_end, y = y_mid, yend = y_mid, colour = colour), size = 1) +
-        ggplot2::geom_segment(data = arrows[["UpDown"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = y_start + (0.375/3)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc"), type = "closed"), size = segment_size, arrow.fill = arrow_colour, alpha = 0.80) +
-        ggplot2::geom_segment(data = arrows[["UpDown"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = y_end - (0.375/3)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc"), type = "closed"), size = segment_size, arrow.fill = arrow_colour, alpha = 0.80)
+        ggplot2::geom_segment(data = arrows[["UpDown"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = y_start + (0.375/3)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed"), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80) +
+        ggplot2::geom_segment(data = arrows[["UpDown"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = y_end - (0.375/3)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed"), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80)
 
       power <- keyboard %>%
         dplyr::filter(key == "Power")
@@ -152,16 +146,16 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
       power_colour <- ifelse(is_dark(unique(power[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
 
       p <- p +
-        ggplot2::geom_segment(data = power,  ggplot2::aes(x = x_mid, xend = x_mid, yend = y_end - (0.375)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc"), type = "closed", angle = 50), size = segment_size, arrow.fill = arrow_colour, alpha = 0.80) +
-        ggplot2::geom_segment(data = power,  ggplot2::aes(x = x_mid - 0.175*width, xend = x_mid + 0.175*width, yend = y_mid - (0.375/4)*height, y = y_mid - (0.375/4)*height, colour = arrow_colour), size = segment_size*2, alpha = 0.80)
+        ggplot2::geom_segment(data = power,  ggplot2::aes(x = x_mid, xend = x_mid, yend = y_end - (0.375)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed", angle = 50), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80) +
+        ggplot2::geom_segment(data = power,  ggplot2::aes(x = x_mid - 0.175*width, xend = x_mid + 0.175*width, yend = y_mid - (0.375/4)*height, y = y_mid - (0.375/4)*height, colour = arrow_colour), size = measurements[["segment_size"]]*2, alpha = 0.80)
 
     } else {
 
     p <- p +
-      ggplot2::geom_segment(data = arrows[["Down"]], ggplot2::aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc")), size = segment_size) +
-      ggplot2::geom_segment(data = arrows[["Up"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc")), size = segment_size) +
-      ggplot2::geom_segment(data = arrows[["Left"]], ggplot2::aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc")), size = segment_size) +
-      ggplot2::geom_segment(data = arrows[["Right"]], ggplot2::aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(arrow_size, "npc")), size = segment_size)
+      ggplot2::geom_segment(data = arrows[["Down"]], ggplot2::aes(x = x_mid, xend = x_mid, y = (y_end + y_mid) / 2, yend = (y_start + y_mid) / 2, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc")), size = measurements[["segment_size"]]) +
+      ggplot2::geom_segment(data = arrows[["Up"]], ggplot2::aes(x = x_mid, xend = x_mid, yend = (y_end + y_mid) / 2, y = (y_start + y_mid) / 2, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc")), size = measurements[["segment_size"]]) +
+      ggplot2::geom_segment(data = arrows[["Left"]], ggplot2::aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc")), size = measurements[["segment_size"]]) +
+      ggplot2::geom_segment(data = arrows[["Right"]], ggplot2::aes(xend = (x_end + x_mid) / 2, x = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = arrow_colour), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc")), size = measurements[["segment_size"]])
     }
   }
 
@@ -178,14 +172,14 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
 
   p <- p +
     # Backspace
-    ggplot2::geom_segment(data = backspace, ggplot2::aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = backspace_colour), arrow = ggplot2::arrow(length = ggplot2::unit(0.02, "npc")), size = segment_size) +
+    ggplot2::geom_segment(data = backspace, ggplot2::aes(x = (x_end + x_mid) / 2, xend = (x_start + x_mid) / 2, y = y_mid, yend = y_mid, colour = backspace_colour), arrow = ggplot2::arrow(length = ggplot2::unit(0.02, "npc")), size = measurements[["segment_size"]]) +
     # Shift arrows
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - key_width * 0.1, xend = x_mid - key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = segment_size) +
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = segment_size) +
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - key_width * 0.25, xend = x_mid, y = y_mid, yend = (y_end + y_mid) / 2, colour = shift_colour), size = segment_size) +
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid, xend = x_mid + key_width * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = shift_colour), size = segment_size) +
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid + key_width * 0.1, xend = x_mid + key_width * 0.25, yend = y_mid, y = y_mid, colour = shift_colour), size = segment_size) +
-    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - key_width * 0.25, xend = x_mid - key_width * 0.1, yend = y_mid, y = y_mid, colour = shift_colour), size = segment_size)
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - measurements[["key_width"]] * 0.1, xend = x_mid - measurements[["key_width"]] * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = measurements[["segment_size"]]) +
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid + measurements[["key_width"]] * 0.1, xend = x_mid + measurements[["key_width"]] * 0.1, y = (y_start + y_mid) / 2, yend = y_mid, colour = shift_colour), size = measurements[["segment_size"]]) +
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - measurements[["key_width"]] * 0.25, xend = x_mid, y = y_mid, yend = (y_end + y_mid) / 2, colour = shift_colour), size = measurements[["segment_size"]]) +
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid, xend = x_mid + measurements[["key_width"]] * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = shift_colour), size = measurements[["segment_size"]]) +
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid + measurements[["key_width"]] * 0.1, xend = x_mid + measurements[["key_width"]] * 0.25, yend = y_mid, y = y_mid, colour = shift_colour), size = measurements[["segment_size"]]) +
+    ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - measurements[["key_width"]] * 0.25, xend = x_mid - measurements[["key_width"]] * 0.1, yend = y_mid, y = y_mid, colour = shift_colour), size = measurements[["segment_size"]])
 
     # Draw on lights - above Ins, Home, PgUp if tkl, and above numpad if full
     if (keyboard_layout == "tkl") {
@@ -194,7 +188,7 @@ construct_plot <- function(keyboard, keyboard_full, key_height = 15 / 15.5, key_
         dplyr::filter(key %in% c("Ins", "Home", "PgUp"))
 
       p <- p +
-        ggplot2::geom_point(data = lights, ggplot2::aes(x = x_mid, y = y_end + height_gap * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75)
+        ggplot2::geom_point(data = lights, ggplot2::aes(x = x_mid, y = y_end + measurements[["height_gap"]] * 3), size = 2.5, colour = palette[["light"]], alpha = 0.75)
     } else if (keyboard_layout == "full") {
 
       numpad_x <- keyboard %>%
