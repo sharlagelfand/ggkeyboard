@@ -9,7 +9,7 @@ NA,NA,NA,4,15,0.25,1,tkl
 Del,Del,modifier,4,16,1,1,tkl
 End,End,modifier,4,17,1,1,tkl
 PgDn,PgDn,modifier,4,18,1,1,tkl
-~&nbsp;`,~&nbsp;`,alphanumeric,5,1,1,1,tkl
+~`,~&nbsp;`,alphanumeric,5,1,1,1,tkl
 NA,NA,NA,5,15,0.25,1,tkl
 Ins,Del,modifier,5,16,1,1,tkl
 Home,End,modifier,5,17,1,1,tkl

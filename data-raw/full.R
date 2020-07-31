@@ -4,7 +4,7 @@ library(ggkeyboard)
 library(readr)
 
 numpad <- read_csv(here::here("data-raw", "numpad.csv")) %>%
-  mutate(across(c(key, key_label), ~ str_replace(.x, "&nbsp;", "\n")))
+  mutate(key_label = str_replace(key_label, "&nbsp;", "\n"))
 
 full <- tkl %>%
   bind_rows(numpad) %>%

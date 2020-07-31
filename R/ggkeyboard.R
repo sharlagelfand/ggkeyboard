@@ -211,7 +211,7 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
 
   # Add symbols in Win key
   windows <- keyboard %>%
-    dplyr::filter(key == "Win")
+    dplyr::filter(key %in% c("Win Left", "Win Right"))
 
   p <- p +
     ggplot2::geom_text(data = windows, ggplot2::aes(x = x_mid, y = y_mid, colour = text_colour), label = "\u{263A}", size = font_size * 2)
@@ -271,7 +271,7 @@ convert_to_iso <- function(keyboard, keyboard_layout) {
         TRUE ~ key_type
       ),
       width = dplyr::case_when(
-        key == "Shift" & row == 2 ~ 1.25,
+        key == "Shift Left" ~ 1.25,
         TRUE ~ width
       ),
       number = dplyr::case_when(

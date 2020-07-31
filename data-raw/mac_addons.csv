@@ -13,7 +13,14 @@ F10,F10,accent,6,14,1,1,mac
 F11,F11,accent,6,15,1,1,mac
 F12,F12,accent,6,16,1,1,mac
 Power,NA,modifier,6,17,1,1,mac
-Command,Command,modifier,1,4,1.25,1,mac
+~`,~&nbsp;`,alphanumeric,5,1,1,1,mac
+Fn,Fn,modifier,1,1,1,1,mac
+Ctrl,Ctrl,modifier,1,2,1,1,mac
+Option Left,Option,modifier,1,3,1,1,mac
+Command Left,Command,modifier,1,4,1.25,1,mac
+Spacebar,NA,accent,1,5,5,1,mac
+Command Right,Command,modifier,1,6,1.25,1,mac
+Option Right,Command,modifier,1,7,1,1,mac
 Left,NA,arrow,1,8,1,1,mac
 UpDown,NA,arrow,1,9,1,1,mac
 Right,NA,arrow,1,10,1,1,mac

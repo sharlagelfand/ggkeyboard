@@ -5,19 +5,19 @@ NumLock,Num&nbsp;Lock,modifier,5,21,1,1,full
 *,*,modifier,5,23,1,1,full
 -,-,modifier,5,24,1,1,full
 NA,NA,NA,4,20,0.25,1,full
-7,7,numpad,4,21,1,1,full
-8,8,numpad,4,22,1,1,full
-9,9,numpad,4,23,1,1,full
+7 Numpad,7,numpad,4,21,1,1,full
+8 Numpad,8,numpad,4,22,1,1,full
+9 Numpad,9,numpad,4,23,1,1,full
 NA,NA,NA,3,20,3.5,1,full
-4,4,numpad,3,21,1,1,full
-5,5,numpad,3,22,1,1,full
-6,6,numpad,3,23,1,1,full
+4 Numpad,4,numpad,3,21,1,1,full
+5 Numpad,5,numpad,3,22,1,1,full
+6 Numpad,6,numpad,3,23,1,1,full
 +,+,modifier,3,24,1,2,full
 NA,NA,NA,2,19,1.25,1,full
-1,1,numpad,2,20,1,1,full
-2,2,numpad,2,21,1,1,full
-3,3,numpad,2,22,1,1,full
+1 Numpad,1,numpad,2,20,1,1,full
+2 Numpad,2,numpad,2,21,1,1,full
+3 Numpad,3,numpad,2,22,1,1,full
 NA,NA,NA,1,14,0.25,1,full
-0,0,numpad,1,15,2,1,full
+0 Numpad,0,numpad,1,15,2,1,full
 .,.,numpad,1,16,1,1,full
-Enter,Enter,modifier,1,17,1,2,full
+Enter Numpad,Enter,modifier,1,17,1,2,full
