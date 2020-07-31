@@ -68,14 +68,14 @@ ggkeyboard(palette = keyboard_palette("cyberpunk"))
 ``` r
 head(tkl)
 #> # A tibble: 6 x 8
-#>   key      key_label key_type       row number width height layout
-#>   <chr>    <chr>     <chr>        <dbl>  <dbl> <dbl>  <dbl> <chr> 
-#> 1 Ctrl     Ctrl      alphanumeric     1      1  1.25      1 60%   
-#> 2 Win      <NA>      alphanumeric     1      2  1.25      1 60%   
-#> 3 Alt      Alt       alphanumeric     1      3  1.25      1 60%   
-#> 4 Spacebar <NA>      accent           1      4  6.25      1 60%   
-#> 5 Alt      Alt       alphanumeric     1      5  1.25      1 60%   
-#> 6 Win      <NA>      alphanumeric     1      6  1.25      1 60%
+#>   key      key_label key_type   row number width height layout
+#>   <chr>    <chr>     <chr>    <dbl>  <dbl> <dbl>  <dbl> <chr> 
+#> 1 Ctrl     Ctrl      modifier     1      1  1.25      1 60%   
+#> 2 Win      <NA>      modifier     1      2  1.25      1 60%   
+#> 3 Alt      Alt       modifier     1      3  1.25      1 60%   
+#> 4 Spacebar <NA>      accent       1      4  6.25      1 60%   
+#> 5 Alt      Alt       modifier     1      5  1.25      1 60%   
+#> 6 Win      <NA>      modifier     1      6  1.25      1 60%
 ```
 
 There is also a full keyboard layout available, via `full`:
@@ -86,13 +86,21 @@ ggkeyboard(full)
 
 <img src="man/figures/README-full-1.png" width="100%" />
 
-and a 60% layout available via `sixty_percent`:
+a 60% layout available via `sixty_percent`:
 
 ``` r
 ggkeyboard(sixty_percent)
 ```
 
 <img src="man/figures/README-sixty-1.png" width="100%" />
+
+and a mac layout, based off the Apple magic keyboard:
+
+``` r
+ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("magic"))
+```
+
+<img src="man/figures/README-mac-1.png" width="100%" />
 
 You can use an ISO layout by changing `layout` to “iso”:
 

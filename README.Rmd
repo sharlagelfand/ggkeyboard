@@ -73,10 +73,16 @@ There is also a full keyboard layout available, via `full`:
 ggkeyboard(full)
 ```
 
-and a 60% layout available via `sixty_percent`:
+a 60% layout available via `sixty_percent`:
 
 ```{r sixty}
 ggkeyboard(sixty_percent)
+```
+
+and a mac layout, based off the Apple magic keyboard:
+
+```{r mac}
+ggkeyboard(mac, font_family = "Arial Unicode MS", palette = keyboard_palette("magic"))
 ```
 
 You can use an ISO layout by changing `layout` to "iso":

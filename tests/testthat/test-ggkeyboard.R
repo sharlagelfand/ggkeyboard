@@ -16,7 +16,7 @@ test_that("iso layout works", {
   expect_doppelganger("iso", iso)
 })
 
-test_that("full and 60% layouts work, ansi and iso", {
+test_that("full, 60%, and mac layouts work, ansi and iso", {
   p <- ggkeyboard(full)
   expect_doppelganger("full", p)
 
@@ -28,4 +28,10 @@ test_that("full and 60% layouts work, ansi and iso", {
 
   p <- ggkeyboard(sixty_percent, layout = "iso")
   expect_doppelganger("sixty-percent-iso", p)
+
+  p <- ggkeyboard(mac, font_family = "Arial Unicode MS")
+  expect_doppelganger("mac", p)
+
+  p <- ggkeyboard(mac, layout = "iso")
+  expect_doppelganger("mac-iso", p)
 })
