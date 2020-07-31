@@ -51,10 +51,6 @@ Plot a keyboard using ggplot2
 \dontrun{
 ggkeyboard()
 
-ggkeyboard(tkl,
-  keyboard_colour = "#51504A", modifier_colour = "#ffce00",
-  accent_colour = "#454A49", alphanum_colour = "#EDEDD8", arrow_colour = "#454A49",
-  font_family = "Courier", background_colour = "lightgrey", light_colour = "#8aff2b"
-)
+ggkeyboard(sixty_percent, palette = keyboard_palette("cyberpunk"))
 }
 }
