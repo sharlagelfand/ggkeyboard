@@ -109,17 +109,11 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
       plot.margin = ggplot2::margin(10, 10, 10, 10)
     )
 
-  # Add rows ----
-
-  for (i in unique(keyboard[["row"]])) {
-    row_data <- keyboard %>%
-      dplyr::filter(row == i)
-
-    p <- p +
-      ggforce::geom_ellipse(data = row_data, ggplot2::aes(x0 = x_mid, y0 = y_mid, a = width / 2, b = height / 2, angle = 0, m1 = 10, fill = fill, colour = colour), size = 1) +
-      ggplot2::geom_text(data = row_data %>%
+  # Add keys ----
+  p <- p +
+      ggforce::geom_ellipse(data = keyboard, ggplot2::aes(x0 = x_mid, y0 = y_mid, a = width / 2, b = height / 2, angle = 0, m1 = 10, fill = fill, colour = colour), size = 1) +
+      ggplot2::geom_text(data = keyboard %>%
         dplyr::filter(!is.na(key_label)), ggplot2::aes(x = x_start + width / 2, y = (y_start + y_end) / 2, label = key_label, size = size, colour = text_colour), family = font_family, lineheight = 0.9)
-  }
 
   # Add arrows if present in layout, and power button for mac
   if (keyboard_layout %in% c("tkl", "full", "mac")) {
