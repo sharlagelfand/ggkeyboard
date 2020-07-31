@@ -95,10 +95,12 @@ ggkeyboard(full, palette = keyboard_palette("varmilo"), font_size = 2.75)
 
 <img src="man/figures/README-full-1.png" width="100%" />
 
-a 60% layout available via `sixty_percent`:
+a 60% layout available via `sixty_percent` (colour palette based off the
+[Drop + T0mb3ry SA Yuri Custom Keycap
+Set](https://drop.com/buy/drop-t0mb3ry-sa-yuri-custom-keycap-set)):
 
 ``` r
-ggkeyboard(sixty_percent)
+ggkeyboard(sixty_percent, palette = keyboard_palette("t0mb3ry"), adjust_text_colour = FALSE)
 ```
 
 <img src="man/figures/README-sixty-1.png" width="100%" />

@@ -1,12 +1,12 @@
 Package: ggkeyboard
 Title: Plot a Keyboard Using "ggplot2"
-Version: 0.0.0.9005
+Version: 0.0.0.9006
 Authors@R: 
     person(given = "Sharla",
            family = "Gelfand",
            role = c("aut", "cre"),
            email = "sharla.gelfand@gmail.com")
-Description: Plots a keyboard using ggplot2. It's not that deep.
+Description: Plot a keyboard using ggplot2.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

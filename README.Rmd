@@ -77,10 +77,10 @@ There is also a full keyboard layout available via `full`. This palette is based
 ggkeyboard(full, palette = keyboard_palette("varmilo"), font_size = 2.75)
 ```
 
-a 60% layout available via `sixty_percent`:
+a 60% layout available via `sixty_percent` (colour palette based off the [Drop + T0mb3ry SA Yuri Custom Keycap Set](https://drop.com/buy/drop-t0mb3ry-sa-yuri-custom-keycap-set)):
 
 ```{r sixty}
-ggkeyboard(sixty_percent)
+ggkeyboard(sixty_percent, palette = keyboard_palette("t0mb3ry"), adjust_text_colour = FALSE)
 ```
 
 and a mac layout, based off the Apple magic keyboard:

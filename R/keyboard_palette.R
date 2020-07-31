@@ -9,6 +9,7 @@
 #' * "cyberpunk" is based off the [Domikey ABS Doubleshot SA Cyberpunk Pumper Keycap Set](https://drop.com/buy/domikey-abs-doubleshot-sa-cyberpunk-pumper-keycap-set).
 #' * "magic" is based off the [Apple magic keyboard](https://www.apple.com/shop/product/MLA22LL/A/magic-keyboard-us-english).
 #' * "varmilo" is based off the [Varmilo VA108 Fullsize Keyboard](https://drop.com/buy/varmilo-108-keyboard).
+#' * "t0mb3ry" is based off the [Drop + T0mb3ry SA Yuri Custom Keycap Set](https://drop.com/buy/drop-t0mb3ry-sa-yuri-custom-keycap-set)
 #'
 #' The palettes have the following fields:
 #' * background: Colour of background.
@@ -30,7 +31,7 @@
 #'
 #' ggkeyboard(palette = keyboard_palette("cyberpunk"))
 #' }
-keyboard_palette <- function(palette = c("pastel", "serika", "wahtsy", "cyberpunk", "magic", "varmilo")) {
+keyboard_palette <- function(palette = c("pastel", "serika", "wahtsy", "cyberpunk", "magic", "varmilo", "t0mb3ry")) {
 
   palette <- match.arg(palette)
 
@@ -100,6 +101,17 @@ keyboard_palette <- function(palette = c("pastel", "serika", "wahtsy", "cyberpun
       arrow = "#a0d8f3",
       light = "#9FD2FF",
       text = "#456DC1"
+    ),
+    t0mb3ry = c(
+      background = "white",
+      keyboard = "#423F40",
+      alphanumeric = "#B2D2F2",
+      accent = "#ff4619",
+      modifier = "#29384E",
+      numpad = "#B2D2F2",
+      arrow = "#29384E",
+      light = "#ff4619",
+      text = "#ff5b33"
     )
   )
 }
