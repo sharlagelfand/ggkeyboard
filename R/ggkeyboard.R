@@ -64,7 +64,7 @@ construct_keyboard <- function(keyboard = tkl, palette = keyboard_palette("paste
       y_mid = y_start + height / 2,
       y_end = y_start + height,
       size = font_size * dplyr::case_when(
-        stringr::str_detect(key, "^[:alnum:]$") & key_type == "alphanumeric" ~ 1.75,
+        key %in% LETTERS ~ 1.75,
         TRUE ~ 1
       )
     ) %>%
