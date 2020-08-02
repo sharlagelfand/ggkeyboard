@@ -163,6 +163,8 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
   shift <- keyboard %>%
     dplyr::filter(stringr::str_detect(key, "Shift"))
 
+  if(nrow(shift) > 0){
+
   shift_colour <- ifelse(is_dark(unique(shift[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
 
   p <- p +
@@ -175,6 +177,7 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
     ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid, xend = x_mid + measurements[["key_width"]] * 0.25, yend = y_mid, y = (y_end + y_mid) / 2, colour = shift_colour), size = measurements[["segment_size"]]) +
     ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid + measurements[["key_width"]] * 0.1, xend = x_mid + measurements[["key_width"]] * 0.25, yend = y_mid, y = y_mid, colour = shift_colour), size = measurements[["segment_size"]]) +
     ggplot2::geom_segment(data = shift, ggplot2::aes(x = x_mid - measurements[["key_width"]] * 0.25, xend = x_mid - measurements[["key_width"]] * 0.1, yend = y_mid, y = y_mid, colour = shift_colour), size = measurements[["segment_size"]])
+  }
 
     # Draw on lights - above Ins, Home, PgUp if tkl, and above numpad if full
     if (keyboard_layout == "tkl") {
