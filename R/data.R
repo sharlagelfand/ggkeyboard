@@ -17,3 +17,8 @@
 #'
 #' A dataset containing rows and keys in a mac keyboard, based off the Apple magic keyboard.
 "mac"
+
+#' Steno Keyboard
+#'
+#' A dataset containing rows and keys in a stenography (steno) keyboard.
+"steno"
