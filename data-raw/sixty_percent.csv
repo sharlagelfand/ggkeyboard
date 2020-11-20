@@ -43,8 +43,8 @@ U,U,alphanumeric,4,8,1,1,60%
 I,I,alphanumeric,4,9,1,1,60%
 O,O,alphanumeric,4,10,1,1,60%
 P,P,alphanumeric,4,11,1,1,60%
-[{,[&nbsp;{,alphanumeric,4,12,1,1,60%
-]},]&nbsp;},alphanumeric,4,13,1,1,60%
+{[,{&nbsp;[,alphanumeric,4,12,1,1,60%
+}],}&nbsp;],alphanumeric,4,13,1,1,60%
 |\,|&nbsp;\,alphanumeric,4,14,1.5,1,60%
 Esc,Esc,modifier,5,1,1,1,60%
 1,!&nbsp;1,alphanumeric,5,2,1,1,60%
