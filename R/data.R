@@ -22,3 +22,8 @@
 #'
 #' A dataset containing rows and keys in a stenography (steno) keyboard.
 "steno"
+
+#' Tenkeyless Keyboard with dvorak layout
+#'
+#' A dataset containing rows and keys in a tenkeyless keyboard with dvorak layout.
+"tkl_dvorak"

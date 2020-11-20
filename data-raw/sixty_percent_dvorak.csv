@@ -1,0 +1,62 @@
+key,key_label,key_type,row,number,width,height,layout
+Ctrl Left,Ctrl,modifier,1,1,1.25,1,60%
+Win Left,NA,modifier,1,2,1.25,1,60%
+Alt Left,Alt,modifier,1,3,1.25,1,60%
+Spacebar,NA,accent,1,4,6.25,1,60%
+Alt Right,Alt,modifier,1,5,1.25,1,60%
+Win Right,NA,modifier,1,6,1.25,1,60%
+Menu,Menu,modifier,1,7,1.25,1,60%
+Ctrl Right,Ctrl,modifier,1,8,1.25,1,60%
+Shift Left,NA,modifier,2,1,2.25,1,60%
+Z,:&nbsp;;,alphanumeric,2,2,1,1,60%
+X,Q,alphanumeric,2,3,1,1,60%
+C,J,alphanumeric,2,4,1,1,60%
+V,K,alphanumeric,2,5,1,1,60%
+B,X,alphanumeric,2,6,1,1,60%
+N,B,alphanumeric,2,7,1,1,60%
+M,M,alphanumeric,2,8,1,1,60%
+"<,",W,alphanumeric,2,9,1,1,60%
+>.,V,alphanumeric,2,10,1,1,60%
+?/,Z,alphanumeric,2,11,1,1,60%
+Shift Right,NA,modifier,2,12,2.75,1,60%
+Caps,Caps,modifier,3,1,1.75,1,60%
+A,A,alphanumeric,3,2,1,1,60%
+S,O,alphanumeric,3,3,1,1,60%
+D,E,alphanumeric,3,4,1,1,60%
+F,U,alphanumeric,3,5,1,1,60%
+G,I,alphanumeric,3,6,1,1,60%
+H,D,alphanumeric,3,7,1,1,60%
+J,H,alphanumeric,3,8,1,1,60%
+K,T,alphanumeric,3,9,1,1,60%
+L,N,alphanumeric,3,10,1,1,60%
+:;,S,alphanumeric,3,11,1,1,60%
+"""'",_&nbsp;-,alphanumeric,3,12,1,1,60%
+Enter,Enter,modifier,3,13,2.25,1,60%
+Tab,Tab,modifier,4,1,1.5,1,60%
+Q,"""&nbsp;'",alphanumeric,4,2,1,1,60%
+W,"<&nbsp;,",alphanumeric,4,3,1,1,60%
+E,>&nbsp;.,alphanumeric,4,4,1,1,60%
+R,P,alphanumeric,4,5,1,1,60%
+T,Y,alphanumeric,4,6,1,1,60%
+Y,F,alphanumeric,4,7,1,1,60%
+U,G,alphanumeric,4,8,1,1,60%
+I,C,alphanumeric,4,9,1,1,60%
+O,R,alphanumeric,4,10,1,1,60%
+P,L,alphanumeric,4,11,1,1,60%
+[{,?&nbsp;/,alphanumeric,4,12,1,1,60%
+]},+&nbsp;=,alphanumeric,4,13,1,1,60%
+|\,|&nbsp;\,alphanumeric,4,14,1.5,1,60%
+Esc,Esc,modifier,5,1,1,1,60%
+1,!&nbsp;1,alphanumeric,5,2,1,1,60%
+2,@&nbsp;2,alphanumeric,5,3,1,1,60%
+3,#&nbsp;3,alphanumeric,5,4,1,1,60%
+4,$&nbsp;4,alphanumeric,5,5,1,1,60%
+5,%&nbsp;5,alphanumeric,5,6,1,1,60%
+6,^&nbsp;6,alphanumeric,5,7,1,1,60%
+7,&&nbsp;7,alphanumeric,5,8,1,1,60%
+8,*&nbsp;8,alphanumeric,5,9,1,1,60%
+9,(&nbsp;9,alphanumeric,5,10,1,1,60%
+0,)&nbsp;0,alphanumeric,5,11,1,1,60%
+_-,{&nbsp;[,alphanumeric,5,12,1,1,60%
++=,}&nbsp;],alphanumeric,5,13,1,1,60%
+Backspace,NA,modifier,5,14,2,1,60%
