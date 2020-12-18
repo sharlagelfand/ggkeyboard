@@ -25,6 +25,7 @@ ggkeyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), lay
     any(keyboard[["layout"]] == "tkl") ~ "tkl",
     any(keyboard[["layout"]] == "mac") ~ "mac",
     any(keyboard[["layout"]] == "steno") ~ "steno",
+    any(keyboard[["layout"]] == "tkl_dvorak") ~ "tkl_dvorak",
     all(keyboard[["layout"]] == "60%") ~ "60%"
   )
 
