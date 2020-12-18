@@ -17,7 +17,6 @@
 #' ggkeyboard(sixty_percent, palette = keyboard_palette("cyberpunk"))
 #' }
 ggkeyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), layout = c("ansi", "iso"), font_family = "Arial Unicode MS", font_size = 3, adjust_text_colour = TRUE, measurements = keyboard_measurements("default")) {
-
   layout <- match.arg(layout)
 
   keyboard_layout <- dplyr::case_when(
@@ -41,7 +40,6 @@ ggkeyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), lay
 }
 
 construct_keyboard <- function(keyboard = tkl, palette = keyboard_palette("pastel"), layout = c("ansi", "iso"), font_size = 3, adjust_text_colour = TRUE, measurements = keyboard_measurements("default"), keyboard_layout = "tkl") {
-
   layout <- match.arg(layout)
 
   palette_df <- tibble::enframe(palette, name = "key_type", value = "fill")
@@ -73,7 +71,7 @@ construct_keyboard <- function(keyboard = tkl, palette = keyboard_palette("paste
     dplyr::left_join(palette_df, by = "key_type") %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      text_colour = ifelse(is_dark(fill) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+      text_colour = text_colour_adjust(fill, palette[["text"]], adjust_text_colour)
     ) %>%
     dplyr::ungroup()
 
@@ -122,7 +120,7 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
     arrows <- keyboard %>%
       dplyr::filter(key %in% c("Up", "Down", "Left", "Right", "UpDown"))
 
-    arrow_colour <- ifelse(is_dark(unique(arrows[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+    arrow_colour <- text_colour_adjust(arrows[["fill"]], palette[["text"]], adjust_text_colour)
 
     arrows <- arrows %>%
       split(.$key)
@@ -139,7 +137,7 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
       power <- keyboard %>%
         dplyr::filter(key == "Power")
 
-      power_colour <- ifelse(is_dark(unique(power[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+      power_colour <- text_colour_adjust(power[["fill"]], palette[["text"]], adjust_text_colour)
 
       p <- p +
         ggplot2::geom_segment(data = power,  ggplot2::aes(x = x_mid, xend = x_mid, yend = y_end - (0.375)*height, y = y_mid, colour = NA_character_), arrow = ggplot2::arrow(length = ggplot2::unit(measurements[["arrow_size"]], "npc"), type = "closed", angle = 50), size = measurements[["segment_size"]], arrow.fill = arrow_colour, alpha = 0.80) +
@@ -159,14 +157,14 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
   backspace <- keyboard %>%
     dplyr::filter(key == "Backspace")
 
-  backspace_colour <- ifelse(is_dark(unique(backspace[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+  backspace_colour <- text_colour_adjust(unique(backspace[["fill"]]), palette[["text"]], adjust_text_colour)
 
   shift <- keyboard %>%
     dplyr::filter(stringr::str_detect(key, "Shift"))
 
   if(nrow(shift) > 0){
 
-  shift_colour <- ifelse(is_dark(unique(shift[["fill"]])) & adjust_text_colour, prismatic::clr_lighten(palette[["text"]], 0.5), palette[["text"]])
+  shift_colour <- text_colour_adjust(unique(shift[["fill"]]), palette[["text"]], adjust_text_colour)
 
   p <- p +
     # Backspace
@@ -248,6 +246,16 @@ construct_plot <- function(keyboard, keyboard_full, palette, layout = c("ansi", 
 
 is_dark <- function(colour) {
   (sum(grDevices::col2rgb(colour) * c(299, 587, 114)) / 1000 < 123)
+}
+
+text_colour_adjust <- function(fill, text_colour, adjust_text_colour) {
+
+  fill_dark <- is_dark(fill)
+  text_colour_dark <- is_dark(text_colour)
+
+  dplyr::case_when(fill_dark & adjust_text_colour & text_colour_dark ~ prismatic::clr_lighten(text_colour),
+                   !fill_dark & adjust_text_colour & !text_colour_dark ~ prismatic::clr_darken(text_colour),
+                   TRUE ~ text_colour)
 }
 
 convert_to_iso <- function(keyboard, keyboard_layout) {
