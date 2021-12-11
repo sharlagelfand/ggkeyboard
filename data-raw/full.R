@@ -8,6 +8,7 @@ numpad <- read_csv(here::here("data-raw", "numpad.csv")) %>%
 
 full <- tkl %>%
   bind_rows(numpad) %>%
-  arrange(row, number)
+  arrange(row, number) %>%
+  mutate(layout = "full")
 
 usethis::use_data(full, overwrite = TRUE)
