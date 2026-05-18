@@ -253,8 +253,8 @@ text_colour_adjust <- function(fill, text_colour, adjust_text_colour) {
   fill_dark <- is_dark(fill)
   text_colour_dark <- is_dark(text_colour)
 
-  dplyr::case_when(fill_dark & adjust_text_colour & text_colour_dark ~ prismatic::clr_lighten(text_colour),
-                   !fill_dark & adjust_text_colour & !text_colour_dark ~ prismatic::clr_darken(text_colour),
+  dplyr::case_when(fill_dark & adjust_text_colour & text_colour_dark ~ as.character(prismatic::clr_lighten(text_colour)),
+                   !fill_dark & adjust_text_colour & !text_colour_dark ~ as.character(prismatic::clr_darken(text_colour)),
                    TRUE ~ text_colour)
 }
 
